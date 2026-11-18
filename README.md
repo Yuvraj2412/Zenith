@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ZENITH 2027 — IIST Inter-College Sports Fest Portal
 
-## Getting Started
+Official sports registration and payment verification web app for **ZENITH 2027** (Indian Institute of Space Science and Technology, Thiruvananthapuram), built with **Next.js App Router + Tailwind CSS + Supabase**.
 
-First, run the development server:
+## Features
+
+- **7 Official Sports (from ZENITH Brochure)**:
+  1. **Football** — ₹75K Prize Pool • ₹5,000/team • League + Playoffs
+  2. **Cricket** — ₹75K Prize Pool • ₹5,000/team • League + Playoffs
+  3. **Basketball** (Men's ₹45K / ₹3,500 • Women's ₹25K / ₹2,500)
+  4. **Volleyball** — ₹45K Prize Pool • ₹3,500/team • Knockout
+  5. **Chess** — ₹35K Prize Pool • ₹1,750/team • Swiss and Playoffs
+  6. **Badminton** — ₹40K Prize Pool • ₹4,000/team • Mixed Team (MD, MD, MS, WS, XD)
+  7. **Table Tennis** (Men's ₹15K / ₹1,750 • Women's Individual ₹7.5K / ₹700)
+- **Strict Access Flow**:
+  - Public visitors can browse all 7 sports, rules, prize pools, fees, and coordinator contacts.
+  - Clicking **Register** requires **Google Sign-In**.
+  - First-time users must complete their **Athlete & University Profile** (`/profile`) before `/register` unlocks.
+- **Pay-to-Screenshot Flow**:
+  - Dynamically generated scannable **UPI QR code** per sport/category fee + UTR/Transaction reference + screenshot upload (`PNG`/`JPG`/`WEBP`, max 5 MB) stored securely in a private Supabase Storage bucket (`payment-screenshots`).
+- **Admin Verification Dashboard (`/admin`)**:
+  - View all registrations, filter by sport/status/search, inspect full-size payment screenshots in a lightbox, export CSV, and click **Approve → Success** (or **Reject** with a remark).
+  - User profile immediately reflects **`Pending` → `Success`**.
+
+---
+
+## Setup Instructions (Supabase + Google Auth)
+
+### 1. Create Supabase Project & Run Schema
+1. Create a free project at [supabase.com](https://supabase.com).
+2. Open **SQL Editor** in your Supabase Dashboard, copy the entire contents of [`supabase/schema.sql`](supabase/schema.sql), and run it.
+   This creates:
+   - `public.profiles`
+   - `public.registrations`
+   - Private storage bucket `payment-screenshots`
+   - Row Level Security (RLS) policies + Google profile auto-creation trigger.
+
+### 2. Enable Google OAuth in Supabase
+1. In Google Cloud Console, create OAuth 2.0 Web Client credentials:
+   - Authorized redirect URI: `https://<YOUR-PROJECT-REF>.supabase.co/auth/v1/callback`
+2. In Supabase Dashboard → **Authentication → Providers → Google**, paste your Google Client ID and Client Secret and enable it.
+3. In Supabase Dashboard → **Authentication → URL Configuration**:
+   - Site URL: `http://localhost:3000` (and your production URL when deployed)
+   - Additional Redirect URLs: `http://localhost:3000/auth/callback`
+
+### 3. Configure Environment Variables
+Copy `.env.local.example` to `.env.local`:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.local.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Fill in:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_UPI_ID` (your official fest UPI ID for the QR code)
+- `NEXT_PUBLIC_UPI_NAME`
+- Optional: `ADMIN_EMAILS` + `SUPABASE_SERVICE_ROLE_KEY`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Grant Admin Access
+After signing in once with Google, run this in Supabase SQL Editor:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```sql
+UPDATE public.profiles
+SET role = 'admin'
+WHERE email = 'your-admin-email@gmail.com';
+```
 
-## Learn More
+### 5. Run Locally
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000).
