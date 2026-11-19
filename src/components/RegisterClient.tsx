@@ -13,7 +13,7 @@ import {
   Trophy,
   Users,
 } from "lucide-react";
-import { SPORTS } from "@/data/sports";
+import { getAccommodationFeePerPlayerInr, SPORTS } from "@/data/sports";
 import type { PaymentStatus, Profile } from "@/types/database";
 
 type ActiveRegistrationMap = Record<string, PaymentStatus>;
@@ -100,6 +100,12 @@ export function RegisterClient({
   const alreadyRegisteredStatus = activeRegistrations[activeKey];
   const ageWarning =
     profile.age !== null && profile.age > selectedSport.ageLimit;
+  const accommodationUnitFee = getAccommodationFeePerPlayerInr();
+  const validAccPlayers = accommodationRequired
+    ? Math.max(1, Math.min(squadCount, accommodationPlayers || squadCount))
+    : 0;
+  const accommodationTotalFee = validAccPlayers * accommodationUnitFee;
+  const estimatedTotalInr = selectedCategory.feeInr + accommodationTotalFee;
 
   function handleProceedToPayment(e: FormEvent) {
     e.preventDefault();
@@ -428,23 +434,29 @@ export function RegisterClient({
             {accommodationRequired && (
               <div className="mt-3 space-y-3 border-t border-blue-200/70 pt-3 text-xs text-[#091930]/85">
                 <p className="rounded-sm border-l-2 border-[#D9531E] bg-white px-3 py-2 font-medium text-[#091930]">
-                  Accommodation will be provided in campus. Further details will
-                  be shown on the payment page.
+                  Accommodation will be provided in campus at{" "}
+                  <strong>₹{accommodationUnitFee.toLocaleString("en-IN")} / player</strong>.
+                  Further details &amp; total will be shown on the payment page.
                 </p>
-                <div className="flex flex-wrap items-center gap-3">
-                  <label className="font-semibold text-slate-700">
-                    Members needing accommodation:
-                  </label>
-                  <input
-                    type="number"
-                    min={1}
-                    max={squadCount}
-                    value={accommodationPlayers}
-                    onChange={(e) =>
-                      setAccommodationPlayers(Number(e.target.value))
-                    }
-                    className="w-24 rounded-sm border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-900 outline-none focus:border-[#16408B]"
-                  />
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <label className="font-semibold text-slate-700">
+                      Members needing accommodation:
+                    </label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={squadCount}
+                      value={accommodationPlayers}
+                      onChange={(e) =>
+                        setAccommodationPlayers(Number(e.target.value))
+                      }
+                      className="w-20 rounded-sm border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-900 outline-none focus:border-[#16408B]"
+                    />
+                  </div>
+                  <span className="font-semibold text-[#D9531E]">
+                    + ₹{accommodationTotalFee.toLocaleString("en-IN")}
+                  </span>
                 </div>
               </div>
             )}
@@ -477,7 +489,7 @@ export function RegisterClient({
             disabled={Boolean(alreadyRegisteredStatus)}
             className="label flex w-full items-center justify-center gap-2 rounded-sm bg-[#D9531E] px-6 py-3.5 text-white shadow-lg shadow-[#D9531E]/25 transition hover:bg-[#BE4414] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Proceed to Payment Page ({selectedCategory.feeDisplay})
+            Proceed to Payment Page (₹{estimatedTotalInr.toLocaleString("en-IN")})
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>

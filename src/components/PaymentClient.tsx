@@ -11,7 +11,11 @@ import {
   UploadCloud,
   X,
 } from "lucide-react";
-import type { Sport, SportCategory } from "@/data/sports";
+import {
+  getAccommodationFeePerPlayerInr,
+  type Sport,
+  type SportCategory,
+} from "@/data/sports";
 import { createClient } from "@/lib/supabase/client";
 import { buildScreenshotPath, validateScreenshotFile } from "@/lib/storage";
 import type { Profile } from "@/types/database";
@@ -50,6 +54,13 @@ export function PaymentClient({
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const accommodationUnitFee = getAccommodationFeePerPlayerInr();
+  const accommodationTotalFee = accommodationRequired
+    ? accommodationPlayers * accommodationUnitFee
+    : 0;
+  const totalAmountInr = category.feeInr + accommodationTotalFee;
+  const totalAmountDisplay = `₹${totalAmountInr.toLocaleString("en-IN")}`;
 
   useEffect(() => {
     return () => {
@@ -191,8 +202,9 @@ export function PaymentClient({
                   <strong>
                     {accommodationPlayers}{" "}
                     {accommodationPlayers === 1 ? "player" : "players"}
-                  </strong>
-                  . On-campus hostel accommodation will be provided by IIST;
+                  </strong>{" "}
+                  × ₹{accommodationUnitFee.toLocaleString("en-IN")} / player.
+                  On-campus hostel accommodation will be provided by IIST;
                   allotment &amp; check-in details will be shared upon
                   verification (carry original College ID &amp; Aadhar ID).
                 </p>
@@ -202,15 +214,17 @@ export function PaymentClient({
                 </p>
               )}
             </div>
-            <span className="text-xs font-semibold text-[#16408B]">
-              {accommodationRequired ? "Included (On Campus)" : "—"}
-            </span>
+            <p className="font-display text-lg font-medium text-[#091930] shrink-0">
+              {accommodationRequired
+                ? `+ ₹${accommodationTotalFee.toLocaleString("en-IN")}`
+                : "₹0"}
+            </p>
           </div>
 
           <div className="flex items-center justify-between bg-[#07162C] p-4 text-white">
             <span className="label text-blue-200">Total Payable Now</span>
             <span className="font-display text-2xl font-medium text-orange-300">
-              {category.feeDisplay}
+              {totalAmountDisplay}
             </span>
           </div>
         </div>
@@ -247,7 +261,7 @@ export function PaymentClient({
           upiId={paymentConfig.upiId}
           upiName={paymentConfig.upiName}
           paymentNote={paymentConfig.note}
-          amountInr={category.feeInr}
+          amountInr={totalAmountInr}
           sportLabel={`${sport.name} (${category.label})`}
         />
 
@@ -277,7 +291,7 @@ export function PaymentClient({
                 Click to attach payment screenshot
               </span>
               <span className="mt-1 text-xs text-slate-500">
-                Ensure Payment ID and amount ({category.feeDisplay}) are visible
+                Ensure Payment ID and amount ({totalAmountDisplay}) are visible
               </span>
               <input
                 type="file"
@@ -330,7 +344,7 @@ export function PaymentClient({
           {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
           {submitting
             ? "Submitting Payment..."
-            : `Submit Payment & Registration (${category.feeDisplay})`}
+            : `Submit Payment & Registration (${totalAmountDisplay})`}
         </button>
       </div>
     </form>

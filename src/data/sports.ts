@@ -317,6 +317,11 @@ export const SPORTS: Sport[] = [
   },
 ];
 
+export function getAccommodationFeePerPlayerInr(): number {
+  const raw = Number(process.env.NEXT_PUBLIC_ACCOMMODATION_FEE_INR);
+  return Number.isFinite(raw) && raw >= 0 ? Math.trunc(raw) : 500;
+}
+
 export function getSportBySlug(slug: string): Sport | undefined {
   return SPORTS.find((sport) => sport.slug === slug);
 }

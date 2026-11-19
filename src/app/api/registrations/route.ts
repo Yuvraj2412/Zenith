@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { getSportCategory } from "@/data/sports";
+import {
+  getAccommodationFeePerPlayerInr,
+  getSportCategory,
+} from "@/data/sports";
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -122,6 +125,11 @@ export async function POST(request: Request) {
     );
   }
 
+  const accommodationFee = accommodationRequired
+    ? accommodationPlayers * getAccommodationFeePerPlayerInr()
+    : 0;
+  const totalAmountInr = category.feeInr + accommodationFee;
+
   const { data: registration, error } = await supabase
     .from("registrations")
     .insert({
@@ -135,7 +143,7 @@ export async function POST(request: Request) {
       player_names: playerNames,
       accommodation_required: accommodationRequired,
       accommodation_players: accommodationPlayers,
-      amount_inr: category.feeInr,
+      amount_inr: totalAmountInr,
       utr_number: utrNumber,
       payment_screenshot_path: screenshotPath,
       payment_status: "pending",
