@@ -69,7 +69,7 @@ export function ProfileForm({ profile, nextPath }: Props) {
         return;
       }
 
-      setSavedMsg("Profile saved! You can now register for any of the 7 sports.");
+      setSavedMsg("Profile saved! You can now register for any sport.");
       router.refresh();
     } catch {
       setError("Network error while saving profile.");

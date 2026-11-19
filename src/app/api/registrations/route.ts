@@ -47,6 +47,11 @@ export async function POST(request: Request) {
   const teamName = String(body.team_name ?? "").trim();
   const squadCount = Number(body.squad_count);
   const playerNames = String(body.player_names ?? "").trim();
+  const accommodationRequired = Boolean(body.accommodation_required);
+  const accommodationPlayersRaw = Number(body.accommodation_players ?? 0);
+  const accommodationPlayers = accommodationRequired
+    ? Math.max(1, Math.min(squadCount, Number.isFinite(accommodationPlayersRaw) ? Math.trunc(accommodationPlayersRaw) : squadCount))
+    : 0;
   const utrNumber = String(body.utr_number ?? "").trim();
   const screenshotPath = String(body.payment_screenshot_path ?? "").trim();
 
@@ -128,6 +133,8 @@ export async function POST(request: Request) {
       team_name: teamName,
       squad_count: squadCount,
       player_names: playerNames,
+      accommodation_required: accommodationRequired,
+      accommodation_players: accommodationPlayers,
       amount_inr: category.feeInr,
       utr_number: utrNumber,
       payment_screenshot_path: screenshotPath,

@@ -1,244 +1,224 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import {
-  ArrowRight,
-  Award,
-  CheckCircle2,
-  CreditCard,
-  Globe,
-  GraduationCap,
-  MapPin,
-  Phone,
-  ShieldCheck,
-  Trophy,
-  UserCheck,
-} from "lucide-react";
+import { Globe, MapPin, Phone } from "lucide-react";
 import { FEST_INFO, SPORTS } from "@/data/sports";
 import { SportsSectionServer } from "@/components/SportsSectionServer";
 import { SportsShowcase } from "@/components/SportsShowcase";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col">
-      {/* HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#07162C] via-[#0B254B] to-[#1D4ED8] text-white">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-orange-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-blue-400/20 blur-3xl" />
+    <div className="relative flex flex-col overflow-x-clip">
+      {/* Ambient Editorial Blue & Orange Blur Glows */}
+      <div
+        className="pointer-events-none absolute -top-28 right-0 h-[26rem] w-[26rem] rounded-full bg-[#16408B]/12 blur-3xl"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute top-40 -left-24 h-72 w-72 rounded-full bg-[#D9531E]/10 blur-3xl"
+        aria-hidden="true"
+      />
 
-        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-orange-400/40 bg-orange-500/15 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-orange-300">
-              <span>{FEST_INFO.institute}</span>
-            </div>
+      {/* FIRST VIEWPORT (HERO + SCOREBOARD FITS WITHIN ~90VH BELOW NAVBAR) */}
+      <div className="relative flex flex-col lg:min-h-[calc(100svh-5rem)] lg:justify-between">
+        {/* ASYMMETRIC EDITORIAL HERO */}
+        <section className="relative mx-auto my-auto grid w-full max-w-6xl grid-cols-12 items-center gap-x-8 gap-y-6 px-4 py-8 sm:px-6 sm:py-10 lg:py-8">
+          <div className="col-span-12 flex flex-col lg:col-span-7">
+            <p className="label text-[#16408B]">
+              {FEST_INFO.institute} — Kerala
+            </p>
 
-            <h1 className="mt-5 font-display text-4xl font-bold tracking-tight sm:text-6xl">
-              ZENITH <span className="text-orange-400">2027</span>
+            <h1 className="mt-3 font-display text-3xl font-medium leading-[1.08] tracking-tight text-[#091930] sm:text-5xl lg:text-[3.35rem]">
+              <span className="text-[#16408B]">ZENITH 2027</span> brings
+              flagship{" "}
+              <span className="italic text-[#D9531E]">inter-college</span>{" "}
+              tournaments beyond the horizon.
             </h1>
-            <p className="mt-2 font-display text-xl font-semibold text-blue-100 sm:text-2xl">
-              {FEST_INFO.subtitle} —{" "}
-              <span className="text-orange-300">{FEST_INFO.tagline}</span>
-            </p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-blue-100/90">
-              Compete across 7 premier inter-college tournaments at IIST
-              Thiruvananthapuram. Browse all sports below, sign in with Google to
-              build your verified athlete profile, and submit your team entry
-              with instant payment tracking.
+
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#091930]/75 sm:text-base lg:text-lg">
+              Compete across field, court, and board at IIST Thiruvananthapuram.
+              Explore the tournaments below, sign in with Google to complete
+              your athlete profile, and register your team.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <a
                 href="#sports"
-                className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 transition hover:bg-orange-600"
+                className="label inline-flex items-center justify-center gap-3 rounded-sm bg-[#D9531E] px-6 py-3.5 text-white shadow-lg shadow-[#D9531E]/25 transition duration-300 hover:-translate-y-0.5 hover:bg-[#BE4414] hover:shadow-xl hover:shadow-[#D9531E]/30"
               >
-                Explore 7 Sports
-                <ArrowRight className="h-4 w-4" />
+                Explore tournaments <span aria-hidden="true">→</span>
               </a>
               <Link
                 href="/register"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
+                className="label inline-flex items-center justify-center gap-2 rounded-sm border border-[#16408B]/25 bg-white/80 px-6 py-3.5 text-[#091930] shadow-sm shadow-blue-950/5 backdrop-blur-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#16408B] hover:bg-white"
               >
-                Register Team / Player
+                Team registration
               </Link>
             </div>
           </div>
 
-          {/* Key Stats Strip */}
-          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
-              <div className="text-xs font-semibold uppercase tracking-wider text-blue-200">
-                Official Events
+          {/* Framed Editorial Stadium Photograph */}
+          <div className="col-span-12 flex justify-center lg:col-span-5 lg:justify-end">
+            <div className="group w-full max-w-md">
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm bg-[#07162C] shadow-2xl shadow-blue-950/25 lg:aspect-[5/4] lg:max-h-[56svh]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/hero-stadium.jpg"
+                  alt="Floodlit collegiate sports stadium at twilight"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#07162C]/55 via-transparent to-[#16408B]/20"
+                  aria-hidden="true"
+                />
+                <span className="absolute inset-y-0 right-0 flex w-10 items-center justify-center border-l border-white/20 bg-[#07162C]/60 text-white backdrop-blur-md transition-colors duration-500 group-hover:bg-[#07162C]/75 sm:w-11">
+                  <span className="label rotate-180 whitespace-nowrap !text-[0.6rem] text-orange-200 [writing-mode:vertical-rl] sm:!text-[0.65rem]">
+                    Beyond The Horizon • IIST
+                  </span>
+                </span>
               </div>
-              <div className="mt-1 font-display text-2xl font-bold text-white">
-                7 Sports
-              </div>
+              <p className="label mt-2 text-right !text-[0.62rem] text-[#091930]/55">
+                Valiamala, Thiruvananthapuram • Est. {FEST_INFO.established}
+              </p>
             </div>
-            <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
-              <div className="text-xs font-semibold uppercase tracking-wider text-blue-200">
+          </div>
+        </section>
+
+        {/* FROSTED DEEP BLUE & ORANGE SCOREBOARD STRIP */}
+        <section className="relative border-y border-blue-900/20 bg-gradient-to-r from-[#07162C] via-[#0E2B57] to-[#16408B] text-white shadow-xl shadow-blue-950/15">
+          <div className="mx-auto grid max-w-6xl grid-cols-2 divide-y divide-white/15 sm:grid-cols-4 sm:divide-x sm:divide-y-0">
+            <div className="px-4 py-3.5 sm:px-6 sm:py-4">
+              <p className="label !text-[0.6rem] text-blue-200">Edition</p>
+              <p className="mt-0.5 font-display text-lg font-medium text-white sm:text-xl">
+                Inter-College
+              </p>
+            </div>
+            <div className="px-4 py-3.5 sm:px-6 sm:py-4">
+              <p className="label !text-[0.6rem] text-blue-200">
                 Total Prize Pool*
-              </div>
-              <div className="mt-1 font-display text-2xl font-bold text-orange-300">
+              </p>
+              <p className="mt-0.5 font-display text-lg font-medium text-orange-300 sm:text-xl">
                 {FEST_INFO.totalPrizePoolDisplay}
-              </div>
+              </p>
             </div>
-            <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
-              <div className="text-xs font-semibold uppercase tracking-wider text-blue-200">
-                Eligibility
-              </div>
-              <div className="mt-1 font-display text-xl font-bold text-white">
-                Univ. Students
-              </div>
+            <div className="px-4 py-3.5 sm:px-6 sm:py-4">
+              <p className="label !text-[0.6rem] text-blue-200">Formats</p>
+              <p className="mt-0.5 font-display text-base font-medium text-white sm:text-lg">
+                League • Swiss • KO
+              </p>
             </div>
-            <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
-              <div className="text-xs font-semibold uppercase tracking-wider text-blue-200">
-                Verification
-              </div>
-              <div className="mt-1 font-display text-xl font-bold text-white">
-                College & Aadhar ID
-              </div>
+            <div className="px-4 py-3.5 sm:px-6 sm:py-4">
+              <p className="label !text-[0.6rem] text-blue-200">Verification</p>
+              <p className="mt-0.5 font-display text-base font-medium text-white sm:text-lg">
+                College &amp; Aadhar ID
+              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      {/* SIMPLE 3-STEP REGISTRATION FLOW */}
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="flex items-start gap-3.5 rounded-2xl border border-slate-100 bg-slate-50 p-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-700 text-white">
-                <UserCheck className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-blue-700">
-                  Step 1 • Profile
-                </p>
-                <h2 className="font-display text-base font-bold text-slate-900">
-                  Google Login & Details
-                </h2>
-                <p className="mt-1 text-xs leading-relaxed text-slate-600">
-                  Sign in with Google and fill your college, age, and ID details
-                  once to unlock registration.
-                </p>
-              </div>
-            </div>
+      {/* SPORTS EDITORIAL DIRECTORY */}
+      <section
+        id="sports"
+        className="relative mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-24"
+      >
+        <div
+          className="pointer-events-none absolute -right-24 top-20 h-72 w-72 rounded-full bg-[#D9531E]/10 blur-3xl"
+          aria-hidden="true"
+        />
 
-            <div className="flex items-start gap-3.5 rounded-2xl border border-slate-100 bg-slate-50 p-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-500 text-white">
-                <CreditCard className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-orange-600">
-                  Step 2 • Payment
-                </p>
-                <h2 className="font-display text-base font-bold text-slate-900">
-                  Pay & Upload Screenshot
-                </h2>
-                <p className="mt-1 text-xs leading-relaxed text-slate-600">
-                  Select a sport, scan the UPI QR code to pay the fee, and attach
-                  your payment screenshot.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3.5 rounded-2xl border border-slate-100 bg-slate-50 p-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white">
-                <CheckCircle2 className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">
-                  Step 3 • Approval
-                </p>
-                <h2 className="font-display text-base font-bold text-slate-900">
-                  Pending → Success
-                </h2>
-                <p className="mt-1 text-xs leading-relaxed text-slate-600">
-                  Once an admin verifies your screenshot, your profile status
-                  updates from Pending to Success.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7 SPORTS SHOWCASE */}
-      <section id="sports" className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
-        <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div className="relative mb-8 flex flex-col justify-between gap-3 sm:mb-10 sm:flex-row sm:items-end">
           <div>
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-orange-600">
-              <Trophy className="h-4 w-4" />
-              Official Brochure Events
-            </span>
-            <h2 className="mt-1 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
-              7 Inter-College Sports
+            <p className="label text-[#D9531E]">Official Prospectus</p>
+            <h2 className="mt-2 font-display text-3xl font-medium tracking-tight text-[#091930] sm:text-4xl">
+              Official Tournaments
             </h2>
           </div>
-          <p className="max-w-md text-sm text-slate-600">
-            Browse rules, prize pools, fees, squad sizes, and sport coordinators.
-            *Prize pools and schedules follow official IIST Zenith rules.
+          <p className="max-w-md text-xs leading-relaxed text-[#091930]/65 sm:text-sm">
+            University students with valid College ID &amp; Aadhar ID only.
+            *Prize pools and fixtures follow official IIST ZENITH guidelines.
           </p>
         </div>
 
-        <Suspense
-          fallback={<SportsShowcase sports={SPORTS} authMode="guest" />}
-        >
-          <SportsSectionServer />
-        </Suspense>
+        <div className="relative">
+          <Suspense
+            fallback={<SportsShowcase sports={SPORTS} authMode="guest" />}
+          >
+            <SportsSectionServer />
+          </Suspense>
+        </div>
       </section>
 
-      {/* ABOUT IIST */}
-      <section id="about" className="border-t border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+      {/* ABOUT IIST — EDITORIAL SPLIT */}
+      <section
+        id="about"
+        className="border-t border-blue-950/10 bg-white/80 backdrop-blur-sm"
+      >
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+          <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-12">
             <div className="lg:col-span-7">
-              <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-blue-700">
-                <GraduationCap className="h-4 w-4" />
-                About Host Institution
-              </span>
-              <h2 className="mt-2 font-display text-3xl font-bold text-slate-900">
-                Indian Institute of Space Science and Technology (IIST)
+              <p className="label text-[#16408B]">Host Institution</p>
+              <h2 className="mt-2 font-display text-2xl font-medium tracking-tight text-[#091930] sm:text-3xl">
+                Indian Institute of Space Science and Technology
               </h2>
-              <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base">
+              <p className="mt-4 text-sm leading-relaxed text-[#091930]/75 sm:text-base">
                 Located in Valiamala, Thiruvananthapuram, Kerala and established
-                in 2007 under the Department of Space, Govt. of India, IIST is a
-                premier academic institution working in close collaboration with
-                the Indian Space Research Organisation (ISRO).
+                in 2007 under the Department of Space, Government of India, IIST
+                is a premier academic institution working in close collaboration
+                with the Indian Space Research Organisation (ISRO).
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
-                Currently <strong>{FEST_INFO.isroAlumniCount} Alumni</strong> of
-                IIST are placed in ISRO, contributing directly to India&apos;s
-                space missions while cultivating an energetic campus culture of
-                athletics and sportsmanship through ZENITH.
+              <p className="mt-3 text-sm leading-relaxed text-[#091930]/75 sm:text-base">
+                With <strong>{FEST_INFO.isroAlumniCount} Alumni</strong> placed
+                in ISRO, IIST pairs scientific excellence with a proud tradition
+                of inter-collegiate athletics through ZENITH.
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-3 text-xs font-semibold text-slate-700">
-                <span className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                  <MapPin className="h-4 w-4 text-orange-500" />
-                  {FEST_INFO.location}
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                  <Award className="h-4 w-4 text-blue-700" />
-                  Est. {FEST_INFO.established} • Dept. of Space
-                </span>
+              <div className="mt-7 grid grid-cols-1 divide-y divide-blue-950/10 border-y border-blue-950/15 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+                <div className="py-3.5 sm:pr-5">
+                  <p className="label !text-[0.6rem] text-[#091930]/50">
+                    Established
+                  </p>
+                  <p className="mt-1 font-display text-xl font-medium text-[#091930]">
+                    {FEST_INFO.established}
+                  </p>
+                </div>
+                <div className="py-3.5 sm:px-5">
+                  <p className="label !text-[0.6rem] text-[#091930]/50">
+                    ISRO Alumni
+                  </p>
+                  <p className="mt-1 font-display text-xl font-medium text-[#D9531E]">
+                    {FEST_INFO.isroAlumniCount}
+                  </p>
+                </div>
+                <div className="py-3.5 sm:pl-5">
+                  <p className="label !text-[0.6rem] text-[#091930]/50">
+                    Campus
+                  </p>
+                  <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-[#16408B]">
+                    <MapPin className="h-3.5 w-3.5 shrink-0" />
+                    Valiamala, Kerala
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="rounded-2xl border border-blue-100 bg-gradient-to-br from-[#0A1D37] to-[#17396D] p-6 text-white shadow-sm lg:col-span-5">
-              <h3 className="font-display text-lg font-bold text-orange-300">
+            <div className="relative overflow-hidden rounded-sm border-l-4 border-[#D9531E] bg-gradient-to-br from-[#07162C] via-[#0B234A] to-[#16408B] p-6 text-white shadow-2xl shadow-blue-950/20 sm:p-8 lg:col-span-5">
+              <div
+                className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-[#D9531E]/25 blur-2xl"
+                aria-hidden="true"
+              />
+              <p className="label relative !text-[0.6rem] text-orange-300">
+                Leadership &amp; Inspiration
+              </p>
+              <h3 className="relative mt-2 font-display text-xl font-medium text-white sm:text-2xl">
                 Guided by Distinguished Visionaries
               </h3>
-              <p className="mt-1 text-xs text-blue-200">
-                Leaders in India&apos;s space sector featured in the ZENITH IIST
-                brochure:
-              </p>
-              <ul className="mt-4 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-1">
+              <ul className="relative mt-5 divide-y divide-white/10">
                 {FEST_INFO.distinguishedLeaders.map((leader) => (
                   <li
                     key={leader}
-                    className="flex items-center gap-2.5 rounded-xl bg-white/10 px-3.5 py-2 text-sm font-medium text-white"
+                    className="py-2.5 text-sm font-normal text-blue-50/90"
                   >
-                    <ShieldCheck className="h-4 w-4 shrink-0 text-orange-400" />
-                    <span>{leader}</span>
+                    {leader}
                   </li>
                 ))}
               </ul>
@@ -247,31 +227,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CONTACT & FOOTER */}
+      {/* CLASSIC FOOTER & CONTACTS */}
       <footer
         id="contact"
-        className="border-t border-slate-800 bg-[#07162C] text-slate-200"
+        className="relative overflow-hidden border-t border-blue-900 bg-[#07162C] text-slate-200"
       >
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+        <div
+          className="pointer-events-none absolute -bottom-24 right-1/3 h-64 w-64 rounded-full bg-[#16408B]/25 blur-3xl"
+          aria-hidden="true"
+        />
+
+        <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6">
           <div className="grid gap-10 md:grid-cols-12">
             <div className="md:col-span-5">
-              <p className="text-xs font-bold uppercase tracking-widest text-orange-400">
+              <p className="label text-orange-400">
                 ZENITH 2027 • BEYOND HORIZON
               </p>
-              <h2 className="mt-2 font-display text-2xl font-bold text-white">
-                Contact the Organizing Team
+              <h2 className="mt-2 font-display text-2xl font-medium text-white sm:text-3xl">
+                Organizing Committee
               </h2>
-              <p className="mt-2 text-sm text-blue-200">
-                Need help with team eligibility, fixture formats, or campus
-                accommodation? Reach out directly to our student coordinators.
+              <p className="mt-3 text-sm leading-relaxed text-blue-100/75">
+                For fixture queries, campus entry, or registration assistance,
+                reach out to the fest coordinators directly.
               </p>
 
-              <div className="mt-5 flex flex-wrap gap-3 text-xs font-semibold">
+              <div className="mt-6 flex flex-wrap gap-5 text-xs font-medium text-blue-200">
                 <a
                   href={FEST_INFO.socials.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white hover:border-orange-400 hover:text-orange-300"
+                  className="transition hover:text-orange-300"
                 >
                   Instagram: {FEST_INFO.socials.instagramHandle}
                 </a>
@@ -279,7 +264,7 @@ export default function HomePage() {
                   href={FEST_INFO.socials.website}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white hover:border-blue-400 hover:text-blue-300"
+                  className="inline-flex items-center gap-1 transition hover:text-orange-300"
                 >
                   <Globe className="h-3.5 w-3.5" />
                   {FEST_INFO.socials.websiteLabel}
@@ -288,23 +273,26 @@ export default function HomePage() {
                   href={FEST_INFO.socials.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white hover:border-blue-400 hover:text-blue-300"
+                  className="transition hover:text-orange-300"
                 >
                   LinkedIn: {FEST_INFO.socials.linkedinHandle}
                 </a>
               </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3 md:col-span-7">
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-blue-300">
+            <div className="grid divide-y divide-white/10 rounded-sm border border-white/15 bg-white/5 shadow-xl shadow-black/25 backdrop-blur-md sm:grid-cols-3 sm:divide-x sm:divide-y-0 md:col-span-7">
+              <div className="p-5">
+                <p className="label !text-[0.6rem] text-blue-300">
                   {FEST_INFO.chiefCoordinator.role}
                 </p>
-                <p className="mt-1 font-display text-base font-bold text-white">
+                <p className="mt-2 font-display text-lg font-medium text-white">
                   {FEST_INFO.chiefCoordinator.name}
                 </p>
                 <a
-                  href={`tel:${FEST_INFO.chiefCoordinator.phone.replace(/\s+/g, "")}`}
+                  href={`tel:${FEST_INFO.chiefCoordinator.phone.replace(
+                    /\s+/g,
+                    ""
+                  )}`}
                   className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-orange-300 hover:underline"
                 >
                   <Phone className="h-3.5 w-3.5" />
@@ -313,14 +301,11 @@ export default function HomePage() {
               </div>
 
               {FEST_INFO.eventsHeads.map((head) => (
-                <div
-                  key={head.phone}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-4"
-                >
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-orange-400">
+                <div key={head.phone} className="p-5">
+                  <p className="label !text-[0.6rem] text-orange-400">
                     {head.role}
                   </p>
-                  <p className="mt-1 font-display text-base font-bold text-white">
+                  <p className="mt-2 font-display text-lg font-medium text-white">
                     {head.name}
                   </p>
                   <a
@@ -335,10 +320,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-10 border-t border-white/10 pt-6 flex flex-col gap-2 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
             <p>© 2027 ZENITH — IIST Inter-College Sports Fest.</p>
             <p>
-              Valid College ID & Aadhar ID mandatory for all university
+              Valid College ID &amp; Aadhar ID mandatory for all university
               participants.
             </p>
           </div>

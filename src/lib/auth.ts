@@ -1,4 +1,5 @@
 import "server-only";
+import { connection } from "next/server";
 import type { User } from "@supabase/supabase-js";
 import { getSupabaseEnv, isAdminEmail } from "./supabase/config";
 import { createClient, createServiceAdminClient } from "./supabase/server";
@@ -12,6 +13,7 @@ export type AuthContext = {
 };
 
 export async function getAuthContext(): Promise<AuthContext> {
+  await connection();
   const { isConfigured } = getSupabaseEnv();
   if (!isConfigured) {
     return {

@@ -37,6 +37,8 @@ create table if not exists public.registrations (
   team_name text not null,
   squad_count integer not null check (squad_count >= 1),
   player_names text not null default '',
+  accommodation_required boolean not null default false,
+  accommodation_players integer not null default 0 check (accommodation_players >= 0),
   amount_inr integer not null check (amount_inr > 0),
   utr_number text not null default '',
   payment_screenshot_path text not null,
@@ -142,7 +144,12 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
--- 8. Row Level Security (RLS) on profiles
+-- 8. Schema & table grants for authenticated users
+grant usage on schema public to anon, authenticated;
+grant select, insert, update on public.profiles to authenticated;
+grant select, insert, update on public.registrations to authenticated;
+
+-- 9. Row Level Security (RLS) on profiles
 alter table public.profiles enable row level security;
 
 drop policy if exists "Users can view own profile" on public.profiles;
@@ -161,7 +168,7 @@ create policy "Users can update own profile"
   using (auth.uid() = id or public.is_admin())
   with check (auth.uid() = id or public.is_admin());
 
--- 9. Row Level Security (RLS) on registrations
+-- 10. Row Level Security (RLS) on registrations
 alter table public.registrations enable row level security;
 
 drop policy if exists "Users view own registrations or admin views all" on public.registrations;
@@ -193,7 +200,7 @@ create policy "Users can resubmit rejected or admin can update status"
     or (auth.uid() = user_id and payment_status = 'pending')
   );
 
--- 10. Private Storage Bucket for Payment Screenshots
+-- 11. Private Storage Bucket for Payment Screenshots
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values (
   'payment-screenshots',

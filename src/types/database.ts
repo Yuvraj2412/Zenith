@@ -31,6 +31,8 @@ export type Registration = {
   team_name: string;
   squad_count: number;
   player_names: string;
+  accommodation_required: boolean;
+  accommodation_players: number;
   amount_inr: number;
   utr_number: string;
   payment_screenshot_path: string;

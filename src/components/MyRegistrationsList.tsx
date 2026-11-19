@@ -166,7 +166,15 @@ export function MyRegistrationsList({
                     </p>
                     <p className="text-xs text-slate-500">
                       Fee: <strong>₹{reg.amount_inr.toLocaleString("en-IN")}</strong>{" "}
-                      • UTR / Ref: <code className="font-semibold text-slate-700">{reg.utr_number}</code>{" "}
+                      • Payment ID: <code className="font-semibold text-slate-700">{reg.utr_number}</code>{" "}
+                      • Accommodation:{" "}
+                      <strong>
+                        {reg.accommodation_required
+                          ? `Yes (${reg.accommodation_players} ${
+                              reg.accommodation_players === 1 ? "player" : "players"
+                            })`
+                          : "No"}
+                      </strong>{" "}
                       • Submitted {new Date(reg.created_at).toLocaleDateString("en-IN")}
                     </p>
                     {reg.player_names && (

@@ -141,8 +141,10 @@ export function AdminDashboardClient({ initialRecords }: Props) {
       "Category",
       "Team Name",
       "Squad Count",
+      "Accommodation",
+      "Accommodation Players",
       "Fee (INR)",
-      "UTR Number",
+      "Payment ID (UTR)",
       "Payment Status",
       "Captain Name",
       "Email",
@@ -167,6 +169,8 @@ export function AdminDashboardClient({ initialRecords }: Props) {
       r.category_label,
       r.team_name,
       r.squad_count,
+      r.accommodation_required ? "Yes" : "No",
+      r.accommodation_players ?? 0,
       r.amount_inr,
       r.utr_number,
       r.payment_status,
@@ -273,7 +277,7 @@ export function AdminDashboardClient({ initialRecords }: Props) {
             onChange={(e) => setSportFilter(e.target.value)}
             className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:border-blue-600"
           >
-            <option value="all">All 7 Sports</option>
+            <option value="all">All Sports</option>
             {SPORTS.map((s) => (
               <option key={s.slug} value={s.slug}>
                 {s.name}
@@ -367,10 +371,16 @@ export function AdminDashboardClient({ initialRecords }: Props) {
                         {reg.team_name} ({reg.squad_count} players)
                       </p>
                       <p>
-                        <strong className="text-slate-800">UTR / Ref:</strong>{" "}
+                        <strong className="text-slate-800">Payment ID:</strong>{" "}
                         <code className="rounded bg-slate-100 px-1.5 py-0.5 font-semibold text-blue-800">
                           {reg.utr_number}
                         </code>
+                      </p>
+                      <p>
+                        <strong className="text-slate-800">Accommodation:</strong>{" "}
+                        {reg.accommodation_required
+                          ? `Campus Hostel (${reg.accommodation_players} players)`
+                          : "Not requested"}
                       </p>
                       <p>
                         <strong className="text-slate-800">Participant:</strong>{" "}
@@ -543,10 +553,16 @@ export function AdminDashboardClient({ initialRecords }: Props) {
                     <strong>Team:</strong> {inspectRecord.team_name}
                   </p>
                   <p>
-                    <strong>UTR / Ref:</strong>{" "}
+                    <strong>Payment ID:</strong>{" "}
                     <code className="font-bold text-blue-800">
                       {inspectRecord.utr_number}
                     </code>
+                  </p>
+                  <p>
+                    <strong>Accommodation:</strong>{" "}
+                    {inspectRecord.accommodation_required
+                      ? `Yes (${inspectRecord.accommodation_players} players)`
+                      : "No"}
                   </p>
                   <p>
                     <strong>Participant:</strong>{" "}

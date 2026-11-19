@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { getAuthContext } from "@/lib/auth";
-import { getPaymentConfig } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 import type { PaymentStatus } from "@/types/database";
 import { RegisterClient } from "@/components/RegisterClient";
@@ -53,15 +52,15 @@ async function RegisterContent({
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <div className="mb-8">
-        <p className="text-xs font-bold uppercase tracking-widest text-orange-600">
-          ZENITH 2027 • Entry & Payment
+        <p className="label text-[#D9531E]">
+          ZENITH 2027 • Step 1 of 2
         </p>
-        <h1 className="mt-1 font-display text-3xl font-bold text-slate-900">
-          Sport Registration
+        <h1 className="mt-1 font-display text-3xl font-medium text-[#091930]">
+          Team Registration
         </h1>
         <p className="mt-1 text-sm text-slate-600">
-          Choose your sport, enter squad details, pay the fee via UPI QR, and
-          upload your payment screenshot for verification.
+          Select your sport, enter your team &amp; accommodation details, then
+          proceed to the payment page.
         </p>
       </div>
 
@@ -70,7 +69,6 @@ async function RegisterContent({
         initialSportSlug={params.sport}
         initialCategoryId={params.category}
         activeRegistrations={activeRegistrations}
-        paymentConfig={getPaymentConfig()}
       />
     </div>
   );
@@ -81,10 +79,10 @@ export default function RegisterPage(props: PageProps<"/register">) {
     <Suspense
       fallback={
         <div className="mx-auto max-w-6xl space-y-6 px-4 py-10 sm:px-6">
-          <div className="h-32 animate-pulse rounded-2xl bg-slate-200" />
+          <div className="h-32 animate-pulse rounded-sm bg-slate-200" />
           <div className="grid gap-6 lg:grid-cols-2">
-            <div className="h-96 animate-pulse rounded-2xl bg-slate-200" />
-            <div className="h-96 animate-pulse rounded-2xl bg-slate-200" />
+            <div className="h-96 animate-pulse rounded-sm bg-slate-200" />
+            <div className="h-96 animate-pulse rounded-sm bg-slate-200" />
           </div>
         </div>
       }

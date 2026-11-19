@@ -47,7 +47,7 @@ async function LoginContent({
           Sign in with Google
         </h1>
         <p className="mt-2 text-sm leading-relaxed text-slate-600">
-          Create your athlete profile in one minute to register for any of the 7
+          Create your athlete profile in one minute to register for any of the
           IIST ZENITH sports and upload your payment screenshot.
         </p>
 
@@ -94,7 +94,7 @@ async function LoginContent({
           <div className="flex items-center gap-2.5">
             <ShieldCheck className="h-4 w-4 shrink-0 text-orange-500" />
             <span>
-              <strong>Without login:</strong> You can browse all 7 sports on the
+              <strong>Without login:</strong> You can browse all sports on the
               home page anytime.
             </span>
           </div>
@@ -105,7 +105,7 @@ async function LoginContent({
             href="/#sports"
             className="text-xs font-semibold text-blue-700 hover:underline"
           >
-            ← Back to Browse 7 Sports
+            ← Back to Browse Sports
           </Link>
         </div>
       </div>

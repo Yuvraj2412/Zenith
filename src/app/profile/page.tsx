@@ -81,7 +81,7 @@ async function ProfileContent({
             </p>
             <p className="mt-0.5 text-xs text-orange-800">
               Fill in your personal, college, and ID verification details below.
-              Once saved, you can register for any of the 7 ZENITH sports.
+              Once saved, you can register for any ZENITH sport.
             </p>
           </div>
         </div>
