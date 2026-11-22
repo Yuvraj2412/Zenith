@@ -89,8 +89,8 @@ export function SportsShowcase({
   const activeRegisterUrl =
     activeSport && activeCategory
       ? `/register?sport=${encodeURIComponent(
-          activeSport.slug
-        )}&category=${encodeURIComponent(activeCategory.id)}`
+        activeSport.slug
+      )}&category=${encodeURIComponent(activeCategory.id)}`
       : "/register";
 
   return (
@@ -153,11 +153,10 @@ export function SportsShowcase({
                 onClick={() =>
                   setFilter(tab.id as "all" | "team" | "mixed-or-women")
                 }
-                className={`label border-b-2 pb-3 transition duration-300 cursor-pointer ${
-                  active
-                    ? "border-[#FF7A00] text-white"
-                    : "border-transparent text-slate-400 hover:text-white"
-                }`}
+                className={`label border-b-2 pb-3 transition duration-300 cursor-pointer ${active
+                  ? "border-[#FF7A00] text-white"
+                  : "border-transparent text-slate-400 hover:text-white"
+                  }`}
               >
                 {tab.label}
               </button>
@@ -276,223 +275,222 @@ export function SportsShowcase({
                 className="relative w-full max-w-xl overflow-hidden rounded-sm border border-blue-900/30 bg-white shadow-2xl shadow-blue-950/35"
                 onClick={(e) => e.stopPropagation()}
               >
-            {/* Navy & Orange Modal Header */}
-            <div className="relative overflow-hidden bg-gradient-to-r from-[#07162C] via-[#0E2B57] to-[#16408B] px-6 py-5 text-white">
-              <div
-                className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#D9531E]/30 blur-2xl"
-                aria-hidden="true"
-              />
-              <div className="relative flex items-start justify-between gap-4">
-                <div>
-                  <p className="label !text-[0.62rem] text-orange-300">
-                    {activeSport.badge} • ZENITH 2027
-                  </p>
-                  <h3
-                    id="sport-modal-title"
-                    className="mt-1 font-display text-3xl font-medium text-white"
-                  >
-                    {activeSport.name}
-                  </h3>
-                  <p className="mt-1 text-xs text-blue-100/80">
-                    {activeSport.tagline}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setActiveSportSlug(null)}
-                  aria-label="Close popup"
-                  className="rounded-sm border border-white/20 bg-white/10 p-1.5 text-white transition hover:bg-white/20 cursor-pointer"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-
-              {/* Division Switcher if Basketball or Table Tennis */}
-              {activeSport.categories.length > 1 && (
-                <div className="relative mt-4 flex gap-4 border-t border-white/15 pt-3">
-                  {activeSport.categories.map((category) => {
-                    const active = category.id === activeCategory.id;
-                    return (
-                      <button
-                        key={category.id}
-                        type="button"
-                        onClick={() =>
-                          setSelectedCategories((prev) => ({
-                            ...prev,
-                            [activeSport.slug]: category.id,
-                          }))
-                        }
-                        className={`border-b-2 pb-1 text-xs font-semibold transition cursor-pointer ${
-                          active
-                            ? "border-[#D9531E] text-white"
-                            : "border-transparent text-blue-200 hover:text-white"
-                        }`}
+                {/* Navy & Orange Modal Header */}
+                <div className="relative overflow-hidden bg-gradient-to-r from-[#07162C] via-[#0E2B57] to-[#16408B] px-6 py-5 text-white">
+                  <div
+                    className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#D9531E]/30 blur-2xl"
+                    aria-hidden="true"
+                  />
+                  <div className="relative flex items-start justify-between gap-4">
+                    <div>
+                      <p className="label !text-[0.62rem] text-orange-300">
+                        {activeSport.badge} • ZENITH 2027
+                      </p>
+                      <h3
+                        id="sport-modal-title"
+                        className="mt-1 font-display text-3xl font-medium text-white"
                       >
-                        {category.id === "mens"
-                          ? "Men's Division"
-                          : "Women's Division"}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            {/* Modal Body */}
-            <div className="space-y-5 p-6">
-              {/* Highlighted Prize Pool & Entry Fee */}
-              <div className="grid grid-cols-2 divide-x divide-blue-950/10 border border-blue-950/10 bg-[#F5F7FB]">
-                <div className="p-4">
-                  <p className="label !text-[0.6rem] text-[#091930]/50">
-                    Prize Pool*
-                  </p>
-                  <p className="mt-1 font-display text-2xl font-medium text-[#091930]">
-                    {activeCategory.prizePoolDisplay}
-                  </p>
-                </div>
-                <div className="p-4">
-                  <p className="label !text-[0.6rem] text-[#091930]/50">
-                    Registration Fee
-                  </p>
-                  <p className="mt-1 font-display text-2xl font-medium text-[#D9531E]">
-                    {activeCategory.feeDisplay}
-                    <span className="ml-1 text-xs font-normal text-[#091930]/55">
-                      {activeCategory.entryType === "Individual"
-                        ? "/ player"
-                        : "/ team"}
-                    </span>
-                  </p>
-                </div>
-              </div>
-
-              {/* Specs */}
-              <div className="grid grid-cols-1 gap-3 border-y border-blue-950/10 py-4 text-xs sm:grid-cols-2">
-                <div>
-                  <span className="label !text-[0.6rem] text-[#091930]/45">
-                    Format
-                  </span>
-                  <p className="mt-0.5 font-semibold text-[#16408B]">
-                    {activeCategory.format}
-                  </p>
-                </div>
-                <div>
-                  <span className="label !text-[0.6rem] text-[#091930]/45">
-                    Squad Size
-                  </span>
-                  <p className="mt-0.5 font-semibold text-[#091930]">
-                    {activeCategory.squadRuleLabel}
-                  </p>
-                </div>
-                <div className="sm:col-span-2">
-                  <span className="label !text-[0.6rem] text-[#091930]/45">
-                    Eligibility
-                  </span>
-                  <p className="mt-0.5 text-[#091930]/80">
-                    Age Limit: {activeSport.ageLimit} Years • University
-                    students only • Valid College ID &amp; Aadhar ID must be
-                    present.
-                    {activeSport.slug === "badminton"
-                      ? " Max of 1 Man & 1 Woman can play 2 formats."
-                      : ""}
-                  </p>
-                </div>
-              </div>
-
-              {/* Coordinators */}
-              <div>
-                <p className="label !text-[0.6rem] text-[#091930]/45">
-                  Sport Coordinators
-                </p>
-                <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
-                  {activeSport.coordinators.map((coord) => (
-                    <a
-                      key={coord.phone}
-                      href={`tel:${coord.phone.replace(/\s+/g, "")}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-[#091930] hover:text-[#16408B]"
+                        {activeSport.name}
+                      </h3>
+                      <p className="mt-1 text-xs text-blue-100/80">
+                        {activeSport.tagline}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setActiveSportSlug(null)}
+                      aria-label="Close popup"
+                      className="rounded-sm border border-white/20 bg-white/10 p-1.5 text-white transition hover:bg-white/20 cursor-pointer"
                     >
-                      <Phone className="h-3.5 w-3.5 text-[#D9531E]" />
-                      {coord.name} ({coord.phone})
-                    </a>
-                  ))}
-                </div>
-              </div>
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
 
-              {/* Status if already registered */}
-              {activeStatus && (
-                <div className="flex items-center gap-2 rounded-sm border border-blue-950/10 bg-[#F5F7FB] px-3.5 py-2.5 text-xs font-semibold">
-                  {activeStatus === "success" && (
-                    <>
-                      <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                      <span className="text-emerald-700">
-                        Your Payment Status: Success
-                      </span>
-                    </>
-                  )}
-                  {activeStatus === "pending" && (
-                    <>
-                      <Clock className="h-4 w-4 text-amber-600" />
-                      <span className="text-amber-700">
-                        Your Payment Status: Pending Admin Approval
-                      </span>
-                    </>
-                  )}
-                  {activeStatus === "rejected" && (
-                    <>
-                      <XCircle className="h-4 w-4 text-red-600" />
-                      <span className="text-red-700">
-                        Your Payment Status: Rejected (Re-upload in Profile)
-                      </span>
-                    </>
+                  {/* Division Switcher if Basketball or Table Tennis */}
+                  {activeSport.categories.length > 1 && (
+                    <div className="relative mt-4 flex gap-4 border-t border-white/15 pt-3">
+                      {activeSport.categories.map((category) => {
+                        const active = category.id === activeCategory.id;
+                        return (
+                          <button
+                            key={category.id}
+                            type="button"
+                            onClick={() =>
+                              setSelectedCategories((prev) => ({
+                                ...prev,
+                                [activeSport.slug]: category.id,
+                              }))
+                            }
+                            className={`border-b-2 pb-1 text-xs font-semibold transition cursor-pointer ${active
+                              ? "border-[#D9531E] text-white"
+                              : "border-transparent text-blue-200 hover:text-white"
+                              }`}
+                          >
+                            {category.id === "mens"
+                              ? "Men's Division"
+                              : "Women's Division"}
+                          </button>
+                        );
+                      })}
+                    </div>
                   )}
                 </div>
-              )}
 
-              {/* Modal Actions */}
-              <div className="flex flex-col-reverse gap-2.5 pt-2 sm:flex-row sm:justify-end">
-                <button
-                  type="button"
-                  onClick={() => setActiveSportSlug(null)}
-                  className="label rounded-sm border border-slate-200 px-5 py-3 text-[#091930]/70 hover:bg-slate-50 cursor-pointer"
-                >
-                  Close
-                </button>
+                {/* Modal Body */}
+                <div className="space-y-5 p-6">
+                  {/* Highlighted Prize Pool & Entry Fee */}
+                  <div className="grid grid-cols-2 divide-x divide-blue-950/10 border border-blue-950/10 bg-[#F5F7FB]">
+                    <div className="p-4">
+                      <p className="label !text-[0.6rem] text-[#091930]/50">
+                        Prize Pool*
+                      </p>
+                      <p className="mt-1 font-display text-2xl font-medium text-[#091930]">
+                        {activeCategory.prizePoolDisplay}
+                      </p>
+                    </div>
+                    <div className="p-4">
+                      <p className="label !text-[0.6rem] text-[#091930]/50">
+                        Registration Fee
+                      </p>
+                      <p className="mt-1 font-display text-2xl font-medium text-[#D9531E]">
+                        {activeCategory.feeDisplay}
+                        <span className="ml-1 text-xs font-normal text-[#091930]/55">
+                          {activeCategory.entryType === "Individual"
+                            ? "/ player"
+                            : "/ team"}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
 
-                {authMode === "guest" && (
-                  <Link
-                    href={`/login?next=${encodeURIComponent(activeRegisterUrl)}`}
-                    className="label inline-flex items-center justify-center gap-2 rounded-sm bg-[#16408B] px-6 py-3 text-white shadow-md shadow-[#16408B]/20 hover:bg-[#0E2B57]"
-                  >
-                    <Lock className="h-3.5 w-3.5" />
-                    Sign in to Register →
-                  </Link>
-                )}
+                  {/* Specs */}
+                  <div className="grid grid-cols-1 gap-3 border-y border-blue-950/10 py-4 text-xs sm:grid-cols-2">
+                    <div>
+                      <span className="label !text-[0.6rem] text-[#091930]/45">
+                        Format
+                      </span>
+                      <p className="mt-0.5 font-semibold text-[#16408B]">
+                        {activeCategory.format}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="label !text-[0.6rem] text-[#091930]/45">
+                        Squad Size
+                      </span>
+                      <p className="mt-0.5 font-semibold text-[#091930]">
+                        {activeCategory.squadRuleLabel}
+                      </p>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <span className="label !text-[0.6rem] text-[#091930]/45">
+                        Eligibility
+                      </span>
+                      <p className="mt-0.5 text-[#091930]/80">
+                        Age Limit: {activeSport.ageLimit} Years • University
+                        students only • Valid College ID &amp; Aadhar ID must be
+                        present.
+                        {activeSport.slug === "badminton"
+                          ? " Max of 1 Man & 1 Woman can play 2 formats."
+                          : ""}
+                      </p>
+                    </div>
+                  </div>
 
-                {authMode === "incomplete-profile" && (
-                  <Link
-                    href={`/profile?onboarding=1&next=${encodeURIComponent(
-                      activeRegisterUrl
-                    )}`}
-                    className="label inline-flex items-center justify-center gap-2 rounded-sm bg-[#D9531E] px-6 py-3 text-white shadow-md shadow-[#D9531E]/25 hover:bg-[#BE4414]"
-                  >
-                    Complete Profile →
-                  </Link>
-                )}
+                  {/* Coordinators */}
+                  <div>
+                    <p className="label !text-[0.6rem] text-[#091930]/45">
+                      Sport Coordinators
+                    </p>
+                    <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
+                      {activeSport.coordinators.map((coord) => (
+                        <a
+                          key={coord.phone}
+                          href={`tel:${coord.phone.replace(/\s+/g, "")}`}
+                          className="inline-flex items-center gap-1.5 text-xs font-medium text-[#091930] hover:text-[#16408B]"
+                        >
+                          <Phone className="h-3.5 w-3.5 text-[#D9531E]" />
+                          {coord.name} ({coord.phone})
+                        </a>
+                      ))}
+                    </div>
+                  </div>
 
-                {authMode === "ready" && (
-                  <Link
-                    href={activeStatus ? "/profile" : activeRegisterUrl}
-                    className="label inline-flex items-center justify-center gap-2 rounded-sm bg-[#D9531E] px-6 py-3 text-white shadow-lg shadow-[#D9531E]/25 hover:bg-[#BE4414]"
-                  >
-                    {activeStatus
-                      ? "View in Profile →"
-                      : `Register (${activeCategory.feeDisplay}) →`}
-                  </Link>
-                )}
+                  {/* Status if already registered */}
+                  {activeStatus && (
+                    <div className="flex items-center gap-2 rounded-sm border border-blue-950/10 bg-[#F5F7FB] px-3.5 py-2.5 text-xs font-semibold">
+                      {activeStatus === "success" && (
+                        <>
+                          <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                          <span className="text-emerald-700">
+                            Your Payment Status: Success
+                          </span>
+                        </>
+                      )}
+                      {activeStatus === "pending" && (
+                        <>
+                          <Clock className="h-4 w-4 text-amber-600" />
+                          <span className="text-amber-700">
+                            Your Payment Status: Pending Admin Approval
+                          </span>
+                        </>
+                      )}
+                      {activeStatus === "rejected" && (
+                        <>
+                          <XCircle className="h-4 w-4 text-red-600" />
+                          <span className="text-red-700">
+                            Your Payment Status: Rejected (Re-upload in Profile)
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Modal Actions */}
+                  <div className="flex flex-col-reverse gap-2.5 pt-2 sm:flex-row sm:justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setActiveSportSlug(null)}
+                      className="label rounded-sm border border-slate-200 px-5 py-3 text-[#091930]/70 hover:bg-slate-50 cursor-pointer"
+                    >
+                      Close
+                    </button>
+
+                    {authMode === "guest" && (
+                      <Link
+                        href={`/login?next=${encodeURIComponent(activeRegisterUrl)}`}
+                        className="label inline-flex items-center justify-center gap-2 rounded-sm bg-[#16408B] px-6 py-3 text-white shadow-md shadow-[#16408B]/20 hover:bg-[#0E2B57]"
+                      >
+                        <Lock className="h-3.5 w-3.5" />
+                        Sign in to Register →
+                      </Link>
+                    )}
+
+                    {authMode === "incomplete-profile" && (
+                      <Link
+                        href={`/profile?onboarding=1&next=${encodeURIComponent(
+                          activeRegisterUrl
+                        )}`}
+                        className="label inline-flex items-center justify-center gap-2 rounded-sm bg-[#D9531E] px-6 py-3 text-white shadow-md shadow-[#D9531E]/25 hover:bg-[#BE4414]"
+                      >
+                        Complete Profile →
+                      </Link>
+                    )}
+
+                    {authMode === "ready" && (
+                      <Link
+                        href={activeStatus ? "/profile" : activeRegisterUrl}
+                        className="label inline-flex items-center justify-center gap-2 rounded-sm bg-[#D9531E] px-6 py-3 text-white shadow-lg shadow-[#D9531E]/25 hover:bg-[#BE4414]"
+                      >
+                        {activeStatus
+                          ? "View in Profile →"
+                          : `Register (${activeCategory.feeDisplay}) →`}
+                      </Link>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          </div>
-        </div>,
+          </div>,
           document.body
         )}
     </div>
