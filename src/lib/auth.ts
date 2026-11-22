@@ -10,6 +10,7 @@ export type AuthContext = {
   user: User | null;
   profile: Profile | null;
   isAdmin: boolean;
+  dbRoleIsAdmin: boolean;
 };
 
 export async function getAuthContext(): Promise<AuthContext> {
@@ -21,6 +22,7 @@ export async function getAuthContext(): Promise<AuthContext> {
       user: null,
       profile: null,
       isAdmin: false,
+      dbRoleIsAdmin: false,
     };
   }
 
@@ -31,6 +33,7 @@ export async function getAuthContext(): Promise<AuthContext> {
       user: null,
       profile: null,
       isAdmin: false,
+      dbRoleIsAdmin: false,
     };
   }
 
@@ -44,6 +47,7 @@ export async function getAuthContext(): Promise<AuthContext> {
       user: null,
       profile: null,
       isAdmin: false,
+      dbRoleIsAdmin: false,
     };
   }
 
@@ -82,29 +86,28 @@ export async function getAuthContext(): Promise<AuthContext> {
     profile = inserted ?? null;
   }
 
-  // Optional auto-promotion if ADMIN_EMAILS + SUPABASE_SERVICE_ROLE_KEY are set
+  // Auto-promote if email is in ADMIN_EMAILS
   if (profile && profile.role !== "admin" && isAdminEmail(user.email)) {
-    const serviceClient = createServiceAdminClient();
-    if (serviceClient) {
-      const { data: promoted } = await serviceClient
-        .from("profiles")
-        .update({ role: "admin" })
-        .eq("id", user.id)
-        .select("*")
-        .maybeSingle<Profile>();
-      if (promoted) {
-        profile = promoted;
-      }
+    const promotionClient = createServiceAdminClient() ?? supabase;
+    const { data: promoted } = await promotionClient
+      .from("profiles")
+      .update({ role: "admin" })
+      .eq("id", user.id)
+      .select("*")
+      .maybeSingle<Profile>();
+    if (promoted) {
+      profile = promoted;
     }
   }
 
-  const isAdmin =
-    profile?.role === "admin" || isAdminEmail(user.email);
+  const dbRoleIsAdmin = profile?.role === "admin";
+  const isAdmin = dbRoleIsAdmin || isAdminEmail(user.email);
 
   return {
     configured: true,
     user,
     profile,
     isAdmin,
+    dbRoleIsAdmin,
   };
 }

@@ -36,7 +36,7 @@ async function LoginContent({
   }
 
   return (
-    <div className="mx-auto max-w-lg px-4 py-14 sm:px-6">
+    <div className="mx-auto max-w-lg px-4 pb-14 pt-28 sm:px-6">
       <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm sm:p-9">
         <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-800">
           <Lock className="h-3.5 w-3.5" />

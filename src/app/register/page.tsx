@@ -50,15 +50,15 @@ async function RegisterContent({
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-6xl px-4 pb-12 pt-28 sm:px-6">
       <div className="mb-8">
-        <p className="label text-[#D9531E]">
+        <p className="label text-[#FF7A00]">
           ZENITH 2027 • Step 1 of 2
         </p>
-        <h1 className="mt-1 font-display text-3xl font-medium text-[#091930]">
+        <h1 className="mt-1 font-display text-3xl font-medium text-white sm:text-4xl">
           Team Registration
         </h1>
-        <p className="mt-1 text-sm text-slate-600">
+        <p className="mt-1 text-sm text-blue-100/85">
           Select your sport, enter your team &amp; accommodation details, then
           proceed to the payment page.
         </p>

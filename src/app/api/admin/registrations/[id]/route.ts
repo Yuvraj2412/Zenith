@@ -50,6 +50,24 @@ export async function PATCH(
     );
   }
 
+  // 1. Try SECURITY DEFINER RPC first (bypasses RLS update/with-check conflicts)
+  const { data: rpcUpdated, error: rpcError } = await adminClient.rpc(
+    "admin_review_registration",
+    {
+      target_id: id,
+      next_status: nextStatus,
+      note: adminNote,
+    }
+  );
+
+  if (!rpcError && rpcUpdated) {
+    const row = Array.isArray(rpcUpdated) ? rpcUpdated[0] : rpcUpdated;
+    if (row) {
+      return NextResponse.json({ registration: row });
+    }
+  }
+
+  // 2. Fallback to standard table update if RPC is not yet created in Supabase
   const { data: updated, error } = await adminClient
     .from("registrations")
     .update({
@@ -63,13 +81,20 @@ export async function PATCH(
     .maybeSingle();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return NextResponse.json(
+      {
+        error: `${error.message}. Please run the SQL fix shown at the top of the Admin Console in your Supabase SQL Editor to grant your account database-level Admin RLS permissions.`,
+      },
+      { status: 400 }
+    );
   }
 
   if (!updated) {
     return NextResponse.json(
-      { error: "Registration not found or permission denied by RLS." },
-      { status: 404 }
+      {
+        error: `Supabase RLS blocked the approval because your profile role in Postgres is still 'user'. Copy and run the SQL fix banner at the top of the Admin Console in your Supabase SQL Editor.`,
+      },
+      { status: 403 }
     );
   }
 

@@ -71,7 +71,7 @@ async function ProfileContent({
     params.onboarding === "1" || !fallbackProfile.profile_completed;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-5xl space-y-6 px-4 pb-12 pt-28 sm:px-6">
       {showOnboardingBanner && (
         <div className="flex items-start gap-3 rounded-2xl border border-orange-200 bg-orange-50 p-4 text-orange-950">
           <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-orange-600" />

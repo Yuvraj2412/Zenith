@@ -2,72 +2,31 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { ZenithLogo } from "./ZenithLogo";
 import { NavbarAuth } from "./NavbarAuth";
+import { NavMenuDrawerButton } from "./NavMenuClient";
+import { NavScrollFill } from "./NavScrollFill";
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-40 border-b border-blue-950/10 bg-[#F5F7FB]/80 shadow-sm shadow-blue-950/5 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:h-20 sm:px-6">
-        <Link href="/" className="shrink-0">
+    <header className="fixed inset-x-0 top-2.5 z-40 px-2.5 sm:top-3.5 sm:px-6">
+      <div className="relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 rounded-xl border border-white/20 bg-[#061329]/75 px-3 shadow-lg backdrop-blur-md sm:h-16 sm:gap-4 sm:px-5">
+        <NavScrollFill />
+
+        <Link href="/" className="relative z-10 shrink-0" aria-label="ZENITH Home">
           <ZenithLogo />
         </Link>
 
-        <nav
-          aria-label="Main"
-          className="hidden items-center gap-8 md:flex"
-        >
-          <Link
-            href="/#sports"
-            className="label relative py-2 text-[#091930]/80 transition-colors duration-300 hover:text-[#D9531E]"
+        <div className="relative z-10 flex shrink-0 items-center gap-1.5 sm:gap-2.5">
+          <Suspense
+            fallback={
+              <div className="h-8 w-20 animate-pulse rounded-lg bg-white/15" />
+            }
           >
-            Tournaments
-          </Link>
-          <Link
-            href="/#about"
-            className="label relative py-2 text-[#091930]/80 transition-colors duration-300 hover:text-[#16408B]"
-          >
-            About IIST
-          </Link>
-          <Link
-            href="/#contact"
-            className="label relative py-2 text-[#091930]/80 transition-colors duration-300 hover:text-[#D9531E]"
-          >
-            Contact
-          </Link>
-        </nav>
+            <NavbarAuth />
+          </Suspense>
 
-        <Suspense
-          fallback={
-            <div className="h-9 w-32 animate-pulse rounded-md bg-blue-950/10" />
-          }
-        >
-          <NavbarAuth />
-        </Suspense>
+          <NavMenuDrawerButton />
+        </div>
       </div>
-
-      {/* Mobile Navigation Strip */}
-      <nav
-        aria-label="Mobile"
-        className="flex items-center justify-around border-t border-blue-950/10 bg-white/70 px-4 py-2 backdrop-blur-sm md:hidden"
-      >
-        <Link
-          href="/#sports"
-          className="label !text-[0.65rem] text-[#091930]/80 hover:text-[#D9531E]"
-        >
-          Tournaments
-        </Link>
-        <Link
-          href="/#about"
-          className="label !text-[0.65rem] text-[#091930]/80 hover:text-[#16408B]"
-        >
-          About IIST
-        </Link>
-        <Link
-          href="/#contact"
-          className="label !text-[0.65rem] text-[#091930]/80 hover:text-[#D9531E]"
-        >
-          Contact
-        </Link>
-      </nav>
     </header>
   );
 }

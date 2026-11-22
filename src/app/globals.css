@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f7fb;
+  --background: #071a3e;
   --foreground: #091930;
-  --zenith-navy: #07162c;
-  --zenith-blue: #16408b;
-  --zenith-orange: #d9531e;
-  --zenith-line: rgba(22, 64, 139, 0.14);
+  --zenith-navy: #071a3e;
+  --zenith-surface: #0b224e;
+  --zenith-blue: #0099ff;
+  --zenith-orange: #ff7a00;
 }
 
 @theme inline {
@@ -37,4 +37,64 @@ body {
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes featherFall {
+  0% {
+    transform: translate3d(0, -5vh, 0) rotate(-12deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.65;
+  }
+  50% {
+    transform: translate3d(24px, 48vh, 0) rotate(14deg);
+  }
+  85% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate3d(-12px, 102vh, 0) rotate(-8deg);
+    opacity: 0;
+  }
+}
+
+.animate-hero-rise {
+  animation: heroRise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-marquee {
+  animation: marqueeScroll 34s linear infinite;
+}
+
+.animate-feather-fall {
+  animation: featherFall 15s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-rise,
+  .animate-marquee,
+  .animate-feather-fall {
+    animation: none !important;
+  }
 }

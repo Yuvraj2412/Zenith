@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { buildScreenshotPath, validateScreenshotFile } from "@/lib/storage";
+import { formatTeamCode } from "@/lib/teamCode";
 import type { RegistrationWithSignedUrl } from "@/types/database";
 
 type Props = {
@@ -159,11 +160,33 @@ export function MyRegistrationsList({
                       <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-[11px] font-semibold text-blue-800">
                         {reg.category_label}
                       </span>
+                      {reg.sport_slug !== "accommodation" && (
+                        <span className="rounded-lg border border-orange-300 bg-orange-50 px-2.5 py-0.5 text-[11px] font-bold text-[#FF7A00]">
+                          Team ID: {formatTeamCode(reg.id)}
+                        </span>
+                      )}
                     </div>
                     <p className="text-sm font-semibold text-slate-700">
                       Team / Entry: {reg.team_name} ({reg.squad_count}{" "}
                       {reg.squad_count === 1 ? "player" : "players"})
                     </p>
+                    {reg.sport_slug !== "accommodation" && (
+                      <p className="text-xs text-blue-800">
+                        Share Team ID{" "}
+                        <code className="rounded bg-blue-100 px-1.5 py-0.5 font-bold">
+                          {formatTeamCode(reg.id)}
+                        </code>{" "}
+                        with teammates or{" "}
+                        <Link
+                          href={`/accommodations?team_id=${formatTeamCode(
+                            reg.id
+                          )}`}
+                          className="font-bold text-[#0099FF] underline hover:text-[#FF7A00]"
+                        >
+                          book campus accommodation here →
+                        </Link>
+                      </p>
+                    )}
                     <p className="text-xs text-slate-500">
                       Fee: <strong>₹{reg.amount_inr.toLocaleString("en-IN")}</strong>{" "}
                       • Payment ID: <code className="font-semibold text-slate-700">{reg.utr_number}</code>{" "}

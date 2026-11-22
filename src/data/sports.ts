@@ -52,7 +52,7 @@ export const FEST_INFO = {
   },
   eventsHeads: [
     { role: "Events Head", name: "Anshuman", phone: "+91 9548269026" },
-    { role: "Events Head", name: "Rohith CV", phone: "+91 9207784237" },
+    { role: "Events Head", name: "Rohith CB", phone: "+91 9207784237" },
   ],
   distinguishedLeaders: [
     "Dr. APJ Abdul Kalam",

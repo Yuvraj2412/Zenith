@@ -130,26 +130,41 @@ export async function POST(request: Request) {
     : 0;
   const totalAmountInr = category.feeInr + accommodationFee;
 
-  const { data: registration, error } = await supabase
+  const basePayload = {
+    user_id: user.id,
+    sport_slug: sport.slug,
+    sport_name: sport.name,
+    category_id: category.id,
+    category_label: category.label,
+    team_name: teamName,
+    squad_count: squadCount,
+    player_names: playerNames,
+    amount_inr: totalAmountInr,
+    utr_number: utrNumber,
+    payment_screenshot_path: screenshotPath,
+    payment_status: "pending" as const,
+  };
+
+  let { data: registration, error } = await supabase
     .from("registrations")
     .insert({
-      user_id: user.id,
-      sport_slug: sport.slug,
-      sport_name: sport.name,
-      category_id: category.id,
-      category_label: category.label,
-      team_name: teamName,
-      squad_count: squadCount,
-      player_names: playerNames,
+      ...basePayload,
       accommodation_required: accommodationRequired,
       accommodation_players: accommodationPlayers,
-      amount_inr: totalAmountInr,
-      utr_number: utrNumber,
-      payment_screenshot_path: screenshotPath,
-      payment_status: "pending",
     })
     .select("*")
     .single();
+
+  // Graceful fallback if accommodation_required/accommodation_players columns were not yet added in DB
+  if (error && error.message.includes("accommodation_")) {
+    const retry = await supabase
+      .from("registrations")
+      .insert(basePayload)
+      .select("*")
+      .single();
+    registration = retry.data;
+    error = retry.error;
+  }
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 400 });

@@ -3,7 +3,13 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { LogOut, ShieldCheck, UserCheck, AlertCircle, ClipboardCheck } from "lucide-react";
+import {
+  AlertCircle,
+  ClipboardCheck,
+  LogOut,
+  ShieldCheck,
+  UserCheck,
+} from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
 type Props = {
@@ -40,9 +46,9 @@ export function NavbarAuthClient({
     return (
       <Link
         href="/login"
-        className="inline-flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-600"
+        className="inline-flex items-center rounded-lg bg-[#E86C1F] px-3 py-1.5 text-xs font-semibold tracking-wide text-white shadow-sm transition hover:bg-[#D15B13] sm:px-4 sm:py-2"
       >
-        Sign in with Google
+        Sign in
       </Link>
     );
   }
@@ -50,38 +56,38 @@ export function NavbarAuthClient({
   const displayName = fullName?.trim() || userEmail.split("@")[0];
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex items-center gap-1.5 sm:gap-2">
       {isAdmin && (
         <Link
           href="/admin"
-          className="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-800 transition hover:bg-blue-100"
+          className="inline-flex items-center gap-1 rounded-lg border border-white/20 bg-white/10 px-2.5 py-1.5 text-xs font-semibold text-blue-100 transition hover:bg-white/20"
         >
-          <ShieldCheck className="h-3.5 w-3.5 text-blue-700" />
-          Admin
+          <ShieldCheck className="h-3.5 w-3.5 text-[#FDBA74]" />
+          <span className="hidden sm:inline">Admin</span>
         </Link>
       )}
 
       {profileCompleted ? (
         <Link
           href="/register"
-          className="inline-flex items-center gap-1.5 rounded-lg bg-orange-500 px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-orange-600"
+          className="hidden items-center gap-1.5 rounded-lg bg-[#E86C1F] px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#D15B13] md:inline-flex"
         >
           <ClipboardCheck className="h-3.5 w-3.5" />
-          Register Sport
+          Register
         </Link>
       ) : (
         <Link
           href="/profile?onboarding=1"
-          className="inline-flex items-center gap-1.5 rounded-lg bg-amber-500 px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-amber-600"
+          className="inline-flex items-center gap-1 rounded-lg bg-amber-600 px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-amber-700"
         >
           <AlertCircle className="h-3.5 w-3.5" />
-          Complete Profile
+          <span className="hidden sm:inline">Complete</span> Profile
         </Link>
       )}
 
       <Link
         href="/profile"
-        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-blue-300 hover:text-blue-700"
+        className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-2 py-1.5 text-xs font-semibold text-white transition hover:border-[#FDBA74]/60 hover:bg-white/15 sm:px-2.5"
       >
         {avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -91,9 +97,11 @@ export function NavbarAuthClient({
             className="h-5 w-5 rounded-full object-cover"
           />
         ) : (
-          <UserCheck className="h-4 w-4 text-blue-700" />
+          <UserCheck className="h-3.5 w-3.5 text-[#FDBA74]" />
         )}
-        <span className="max-w-[120px] truncate">{displayName}</span>
+        <span className="max-w-[68px] truncate sm:max-w-[110px]">
+          {displayName}
+        </span>
       </Link>
 
       <button
@@ -101,9 +109,9 @@ export function NavbarAuthClient({
         onClick={handleSignOut}
         disabled={signingOut}
         title="Sign out"
-        className="inline-flex items-center justify-center rounded-lg border border-slate-200 p-1.5 text-slate-500 transition hover:border-red-200 hover:bg-red-50 hover:text-red-600 cursor-pointer disabled:opacity-50"
+        className="inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/5 p-1.5 text-blue-200 transition hover:border-red-400/40 hover:bg-red-500/20 hover:text-red-200 cursor-pointer disabled:opacity-50"
       >
-        <LogOut className="h-4 w-4" />
+        <LogOut className="h-3.5 w-3.5" />
       </button>
     </div>
   );
