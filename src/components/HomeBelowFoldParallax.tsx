@@ -2,18 +2,76 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 
+const WATERMARK_BANDS = [
+  {
+    top: "3%",
+    dir: 1,
+    speed: 0.26,
+    baseOffset: -220,
+    color: "text-white/[0.045]",
+    text: "BEYOND THE HORIZON • ZENITH 2027 • IIST SPORTS CHAMPIONSHIP • BEYOND THE HORIZON • ZENITH 2027",
+  },
+  {
+    top: "17%",
+    dir: -1,
+    speed: 0.22,
+    baseOffset: 160,
+    color: "text-[#FDBA74]/[0.045]",
+    text: "FOOTBALL • CRICKET • BASKETBALL • VOLLEYBALL • BADMINTON • TABLE TENNIS • CHESS • ZENITH 2027",
+  },
+  {
+    top: "31%",
+    dir: 1,
+    speed: 0.24,
+    baseOffset: -260,
+    color: "text-[#38BDF8]/[0.045]",
+    text: "IIST THIRUVANANTHAPURAM • DEPARTMENT OF SPACE • ANNUAL INTER-COLLEGE SPORTS FEST • ZENITH 2027",
+  },
+  {
+    top: "46%",
+    dir: -1,
+    speed: 0.28,
+    baseOffset: 200,
+    color: "text-white/[0.04]",
+    text: "CHAMPIONSHIP ARENA • ₹3,62,500 PRIZE POOL • LEAGUE & KNOCKOUT • BEYOND THE HORIZON • ZENITH 2027",
+  },
+  {
+    top: "61%",
+    dir: 1,
+    speed: 0.23,
+    baseOffset: -180,
+    color: "text-[#FDBA74]/[0.045]",
+    text: "VALIAMALA CAMPUS • KERALA • ATHLETIC EXCELLENCE • ONE CAPTAIN REGISTRATION • TEAM ID PORTAL",
+  },
+  {
+    top: "76%",
+    dir: -1,
+    speed: 0.25,
+    baseOffset: 190,
+    color: "text-[#38BDF8]/[0.045]",
+    text: "BEYOND THE HORIZON • ZENITH 2027 • IIST THIRUVANANTHAPURAM • INTER-COLLEGE TOURNAMENTS",
+  },
+  {
+    top: "90%",
+    dir: 1,
+    speed: 0.21,
+    baseOffset: -210,
+    color: "text-white/[0.04]",
+    text: "JANUARY 21, 2027 • KICKOFF AT IIST • COMPETE BEYOND THE HORIZON • ZENITH 2027 CHAMPIONSHIPS",
+  },
+];
+
 /**
- * Interactive Below-the-Fold Parallax & Cursor Spotlight Stage for the Home Page.
- * Uses a single passive scroll + pointermove listener updating CSS variables and
- * translate3d transforms directly on DOM refs (zero React re-renders, 60fps).
+ * Interactive Below-the-Fold Parallax Stage for the Main Home Page:
+ * - 7 Full-Background Kinetic Watermark Text Bands moving horizontally on scroll
+ * - Natural Volumetric Sun Rays rotating and sweeping across the background on scroll
  */
 export function HomeBelowFoldParallax({ children }: { children: ReactNode }) {
   const stageRef = useRef<HTMLDivElement | null>(null);
-  const watermarkOneRef = useRef<HTMLDivElement | null>(null);
-  const watermarkTwoRef = useRef<HTMLDivElement | null>(null);
-  const orbitRingRef = useRef<HTMLDivElement | null>(null);
-  const trackLinesRef = useRef<HTMLDivElement | null>(null);
-  const sunOrbRef = useRef<HTMLDivElement | null>(null);
+  const bandRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sunRaysPrimaryRef = useRef<HTMLDivElement | null>(null);
+  const sunRaysSecondaryRef = useRef<HTMLDivElement | null>(null);
+  const diagonalSunShaftsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     let rafId = 0;
@@ -22,46 +80,41 @@ export function HomeBelowFoldParallax({ children }: { children: ReactNode }) {
     function updateParallax() {
       rafId = 0;
       const vh = window.innerHeight || 800;
-      // Progress after scrolling past the first hero viewport
-      const belowScroll = Math.max(0, scrollY - vh * 0.35);
+      const belowScroll = Math.max(0, scrollY - vh * 0.2);
 
-      if (watermarkOneRef.current) {
-        const x = -120 + belowScroll * 0.22;
-        const y = belowScroll * -0.12;
-        watermarkOneRef.current.style.transform = `translate3d(${x.toFixed(
-          1
-        )}px, ${y.toFixed(1)}px, 0)`;
+      // 1. Move all 7 background typography bands across the entire background
+      for (let i = 0; i < WATERMARK_BANDS.length; i++) {
+        const el = bandRefs.current[i];
+        if (!el) continue;
+        const band = WATERMARK_BANDS[i];
+        const x = band.baseOffset + belowScroll * band.speed * band.dir;
+        el.style.transform = `translate3d(${x.toFixed(1)}px, 0px, 0)`;
       }
 
-      if (watermarkTwoRef.current) {
-        const x = 140 - belowScroll * 0.2;
-        const y = belowScroll * -0.15;
-        watermarkTwoRef.current.style.transform = `translate3d(${x.toFixed(
+      // 2. Rotate & sweep natural golden sun rays across the below-the-fold background on scroll
+      if (sunRaysPrimaryRef.current) {
+        const angle = -16 + belowScroll * 0.085;
+        const shiftY = Math.min(belowScroll * 0.18, 320);
+        sunRaysPrimaryRef.current.style.transform = `translate3d(-50%, ${shiftY.toFixed(
           1
-        )}px, ${y.toFixed(1)}px, 0)`;
+        )}px, 0) rotate(${angle.toFixed(2)}deg)`;
       }
 
-      if (orbitRingRef.current) {
-        const y = belowScroll * -0.24;
-        const rot = belowScroll * 0.035;
-        orbitRingRef.current.style.transform = `translate3d(-50%, ${y.toFixed(
+      if (sunRaysSecondaryRef.current) {
+        const angle = 22 - belowScroll * 0.065;
+        const shiftY = Math.min(belowScroll * 0.14, 260);
+        sunRaysSecondaryRef.current.style.transform = `translate3d(-50%, ${shiftY.toFixed(
           1
-        )}px, 0) rotate(${rot.toFixed(2)}deg)`;
+        )}px, 0) rotate(${angle.toFixed(2)}deg)`;
       }
 
-      if (trackLinesRef.current) {
-        const y = belowScroll * -0.18;
-        trackLinesRef.current.style.transform = `translate3d(0, ${y.toFixed(
+      if (diagonalSunShaftsRef.current) {
+        const shiftX = -180 + ((belowScroll * 0.32) % 420);
+        const shiftY = (belowScroll * 0.12) % 240;
+        const tilt = -14 + Math.sin(belowScroll * 0.002) * 8;
+        diagonalSunShaftsRef.current.style.transform = `translate3d(${shiftX.toFixed(
           1
-        )}px, 0)`;
-      }
-
-      if (sunOrbRef.current) {
-        const y = belowScroll * 0.16;
-        const x = Math.sin(belowScroll * 0.0025) * 90;
-        sunOrbRef.current.style.transform = `translate3d(${x.toFixed(
-          1
-        )}px, ${y.toFixed(1)}px, 0)`;
+        )}px, ${shiftY.toFixed(1)}px, 0) rotate(${tilt.toFixed(2)}deg)`;
       }
     }
 
@@ -103,135 +156,73 @@ export function HomeBelowFoldParallax({ children }: { children: ReactNode }) {
         } as React.CSSProperties
       }
     >
-      {/* 1. Fixed-Attachment Atmospheric Space & Stadium Horizon Backdrop */}
+      {/* 1. Primary Volumetric Sun Rays Rotating Across Below-the-Fold Background on Scroll */}
       <div
+        ref={sunRaysPrimaryRef}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
+        className="pointer-events-none absolute left-1/2 -top-72 z-0 h-[1900px] w-[1900px] rounded-full opacity-80 blur-xl will-change-transform"
         style={{
-          backgroundImage:
-            "radial-gradient(circle at 15% 22%, rgba(232,108,31,0.16) 0%, transparent 45%), radial-gradient(circle at 85% 58%, rgba(56,189,248,0.16) 0%, transparent 48%), radial-gradient(circle at 50% 88%, rgba(232,108,31,0.12) 0%, transparent 50%)",
+          transform: "translate3d(-50%, 0px, 0)",
+          background:
+            "conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255,232,175,0.34) 12deg, transparent 28deg, rgba(232,108,31,0.26) 46deg, transparent 66deg, rgba(255,242,195,0.36) 86deg, transparent 108deg, rgba(56,189,248,0.20) 130deg, transparent 152deg, rgba(255,235,180,0.34) 174deg, transparent 198deg, rgba(232,108,31,0.28) 220deg, transparent 244deg, rgba(255,240,190,0.36) 268deg, transparent 292deg, rgba(255,185,85,0.26) 316deg, transparent 340deg, rgba(255,238,185,0.30) 352deg, transparent 360deg)",
+          WebkitMaskImage:
+            "radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0.75) 45%, rgba(0,0,0,0) 76%)",
+          maskImage:
+            "radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0.75) 45%, rgba(0,0,0,0) 76%)",
         }}
       />
 
-      {/* 2. Interactive Cursor Spotlight Following Mouse Across Below-the-Fold Sections */}
+      {/* 2. Secondary Counter-Rotating Sunburst Rays Centered Mid-Page */}
+      <div
+        ref={sunRaysSecondaryRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-[28%] z-0 h-[1800px] w-[1800px] rounded-full opacity-70 blur-2xl will-change-transform"
+        style={{
+          transform: "translate3d(-50%, 0px, 0)",
+          background:
+            "conic-gradient(from 20deg at 50% 50%, transparent 0deg, rgba(255,225,155,0.28) 16deg, transparent 38deg, rgba(56,189,248,0.18) 64deg, transparent 92deg, rgba(255,238,185,0.32) 120deg, transparent 148deg, rgba(232,108,31,0.24) 178deg, transparent 208deg, rgba(255,240,190,0.30) 240deg, transparent 272deg, rgba(255,190,90,0.24) 306deg, transparent 338deg, rgba(255,235,180,0.28) 352deg, transparent 360deg)",
+          WebkitMaskImage:
+            "radial-gradient(circle, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.65) 48%, rgba(0,0,0,0) 78%)",
+          maskImage:
+            "radial-gradient(circle, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.65) 48%, rgba(0,0,0,0) 78%)",
+        }}
+      />
+
+      {/* 3. Sweeping Diagonal Sunlight Shafts Gliding Across the Whole Background on Scroll */}
+      <div
+        ref={diagonalSunShaftsRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-48 z-0 opacity-65 blur-xl will-change-transform"
+        style={{
+          background:
+            "repeating-linear-gradient(112deg, transparent 0px, transparent 110px, rgba(255,232,175,0.16) 150px, rgba(232,108,31,0.13) 195px, rgba(56,189,248,0.08) 235px, transparent 290px)",
+        }}
+      />
+
+      {/* 4. Interactive Cursor Sunlight Spotlight */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
         style={{
           background:
-            "radial-gradient(560px circle at var(--spot-x) var(--spot-y), rgba(232, 108, 31, 0.15), rgba(56, 189, 248, 0.08) 42%, transparent 75%)",
+            "radial-gradient(600px circle at var(--spot-x) var(--spot-y), rgba(232, 108, 31, 0.16), rgba(56, 189, 248, 0.08) 42%, transparent 75%)",
         }}
       />
 
-      {/* 3. Architectural Blueprint Grid + Diagonal Horizon Rays */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 opacity-25"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
-        }}
-      />
-
-      {/* 4. Parallax Gliding Watermark Typography #1 (Moves Left -> Right on Scroll) */}
-      <div
-        ref={watermarkOneRef}
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-24 top-28 z-0 select-none whitespace-nowrap font-display text-[5.5rem] font-semibold uppercase tracking-[0.18em] text-white/[0.035] will-change-transform sm:text-[9rem] lg:text-[11.5rem]"
-      >
-        BEYOND THE HORIZON • ZENITH 2027
-      </div>
-
-      {/* 5. Parallax Gliding Watermark Typography #2 (Moves Right -> Left on Scroll) */}
-      <div
-        ref={watermarkTwoRef}
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-24 top-[54%] z-0 select-none whitespace-nowrap font-display text-[5.5rem] font-semibold uppercase tracking-[0.18em] text-[#38BDF8]/[0.04] will-change-transform sm:text-[9rem] lg:text-[11.5rem]"
-      >
-        IIST THIRUVANANTHAPURAM • SPORTS ARENA
-      </div>
-
-      {/* 6. Parallax Gliding Golden Sun Orb */}
-      <div
-        ref={sunOrbRef}
-        aria-hidden="true"
-        className="pointer-events-none absolute left-[12%] top-44 z-0 h-[420px] w-[420px] rounded-full will-change-transform"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(232,108,31,0.20) 0%, rgba(255,210,130,0.08) 42%, transparent 72%)",
-        }}
-      />
-
-      {/* 7. Parallax Rotating Orbital Compass & Stadium Track Geometry */}
-      <div
-        ref={orbitRingRef}
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-[22%] z-0 h-[820px] w-[820px] will-change-transform"
-        style={{ transform: "translate3d(-50%, 0px, 0)" }}
-      >
-        <svg viewBox="0 0 800 800" className="h-full w-full opacity-25" fill="none">
-          <circle
-            cx="400"
-            cy="400"
-            r="360"
-            stroke="rgba(232,108,31,0.45)"
-            strokeWidth="1.2"
-            strokeDasharray="8 14"
-          />
-          <circle
-            cx="400"
-            cy="400"
-            r="285"
-            stroke="rgba(56,189,248,0.4)"
-            strokeWidth="1"
-          />
-          <circle
-            cx="400"
-            cy="400"
-            r="205"
-            stroke="rgba(255,255,255,0.25)"
-            strokeWidth="0.9"
-            strokeDasharray="3 10"
-          />
-          <path
-            d="M40 400 H760 M400 40 V760"
-            stroke="rgba(255,255,255,0.15)"
-            strokeWidth="0.8"
-          />
-        </svg>
-      </div>
-
-      {/* 8. Parallax Stadium Track Curves Across Lower Section */}
-      <div
-        ref={trackLinesRef}
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[46%] z-0 h-[900px] will-change-transform"
-      >
-        <svg
-          viewBox="0 0 1440 900"
-          className="h-full w-full opacity-25"
-          fill="none"
-          preserveAspectRatio="none"
+      {/* 5. 7 Full-Background Gliding Watermark Text Bands Covering Top to Bottom */}
+      {WATERMARK_BANDS.map((band, idx) => (
+        <div
+          key={band.top}
+          ref={(el) => {
+            bandRefs.current[idx] = el;
+          }}
+          aria-hidden="true"
+          style={{ top: band.top }}
+          className={`pointer-events-none absolute -left-36 z-0 select-none whitespace-nowrap font-display text-[4.5rem] font-semibold uppercase tracking-[0.18em] ${band.color} will-change-transform sm:text-[7.5rem] lg:text-[9.5rem]`}
         >
-          <path
-            d="M-120 740 C 360 440, 1080 440, 1560 740"
-            stroke="rgba(232,108,31,0.5)"
-            strokeWidth="1.5"
-          />
-          <path
-            d="M-120 790 C 360 490, 1080 490, 1560 790"
-            stroke="rgba(56,189,248,0.4)"
-            strokeWidth="1.2"
-            strokeDasharray="10 12"
-          />
-          <path
-            d="M-120 840 C 360 540, 1080 540, 1560 840"
-            stroke="rgba(255,255,255,0.22)"
-            strokeWidth="1"
-          />
-        </svg>
-      </div>
+          {band.text}
+        </div>
+      ))}
 
       {/* Foreground Content */}
       <div className="relative z-10">{children}</div>

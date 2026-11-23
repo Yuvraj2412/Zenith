@@ -73,11 +73,13 @@ export default function HomePage() {
             </div>
 
             <h1
-              className="animate-hero-rise mt-4 font-display text-[2.45rem] font-medium leading-[1.04] tracking-tight text-white sm:mt-5 sm:text-6xl lg:text-[4.5rem]"
+              className="animate-hero-rise mt-3 sm:mt-4"
               style={{ animationDelay: "160ms" }}
             >
-              ZENITH <span className="text-[#E86C1F]">2027</span>
-              <span className="mt-1 block text-2xl font-normal italic text-amber-200/95 sm:text-5xl">
+              <span className="block font-[family-name:var(--font-cinzel)] text-[2.85rem] font-bold leading-[1.02] tracking-[0.06em] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)] sm:text-[4.65rem] lg:text-[5.5rem]">
+                ZENITH <span className="text-[#E86C1F]">2027</span>
+              </span>
+              <span className="mt-1.5 block font-display text-lg font-medium italic tracking-[0.04em] text-amber-200/95 sm:text-2xl lg:text-[1.75rem]">
                 Beyond the Horizon.
               </span>
             </h1>
@@ -505,31 +507,66 @@ export default function HomePage() {
                   {FEST_INFO.institute}, Valiamala, Thiruvananthapuram, Kerala.
                 </p>
 
-                <div className="flex flex-wrap gap-3 pt-1 text-xs font-semibold">
+                {/* Social Brand Logos & Links */}
+                <div className="flex items-center gap-3 pt-1">
                   <a
                     href={FEST_INFO.socials.instagram}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white transition hover:border-[#FF7A00] hover:text-[#FF7A00]"
+                    aria-label={`Instagram (${FEST_INFO.socials.instagramHandle})`}
+                    title={`Instagram: ${FEST_INFO.socials.instagramHandle}`}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white transition hover:border-[#E86C1F] hover:bg-[#E86C1F] hover:text-white"
                   >
-                    Instagram: {FEST_INFO.socials.instagramHandle}
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                    </svg>
                   </a>
-                  <a
-                    href={FEST_INFO.socials.website}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white transition hover:border-[#38BDF8] hover:text-[#38BDF8]"
-                  >
-                    <Globe className="h-3.5 w-3.5" />
-                    {FEST_INFO.socials.websiteLabel}
-                  </a>
+
                   <a
                     href={FEST_INFO.socials.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white transition hover:border-[#38BDF8] hover:text-[#38BDF8]"
+                    aria-label={`LinkedIn (${FEST_INFO.socials.linkedinHandle})`}
+                    title={`LinkedIn: ${FEST_INFO.socials.linkedinHandle}`}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white transition hover:border-[#38BDF8] hover:bg-[#38BDF8] hover:text-[#05132E]"
                   >
-                    LinkedIn: {FEST_INFO.socials.linkedinHandle}
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                      <rect width="4" height="12" x="2" y="9" />
+                      <circle cx="4" cy="4" r="2" />
+                    </svg>
+                  </a>
+
+                  <a
+                    href={FEST_INFO.socials.website}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Official Website (${FEST_INFO.socials.websiteLabel})`}
+                    title={FEST_INFO.socials.websiteLabel}
+                    className="inline-flex h-10 items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.06] px-3.5 text-xs font-medium text-white transition hover:border-[#38BDF8] hover:text-[#38BDF8]"
+                  >
+                    <Globe className="h-3.5 w-3.5" />
+                    <span>{FEST_INFO.socials.websiteLabel}</span>
                   </a>
                 </div>
               </div>
@@ -539,14 +576,14 @@ export default function HomePage() {
                 <p className="label text-[#38BDF8]">Quick Links</p>
                 <ul className="mt-4 space-y-2.5 text-sm font-medium text-blue-100/85">
                   <li>
-                    <Link href="/" className="transition hover:text-[#FF7A00]">
+                    <Link href="/" className="transition hover:text-[#E86C1F]">
                       Home
                     </Link>
                   </li>
                   <li>
                     <Link
                       href="/tournaments"
-                      className="transition hover:text-[#FF7A00]"
+                      className="transition hover:text-[#E86C1F]"
                     >
                       Tournaments &amp; Rules
                     </Link>
@@ -554,7 +591,7 @@ export default function HomePage() {
                   <li>
                     <Link
                       href="/accommodations"
-                      className="transition hover:text-[#FF7A00]"
+                      className="transition hover:text-[#E86C1F]"
                     >
                       Campus Accommodations (Team ID)
                     </Link>
@@ -562,7 +599,7 @@ export default function HomePage() {
                   <li>
                     <Link
                       href="/sponsors"
-                      className="transition hover:text-[#FF7A00]"
+                      className="transition hover:text-[#E86C1F]"
                     >
                       Sponsors &amp; Partners
                     </Link>
@@ -570,7 +607,7 @@ export default function HomePage() {
                   <li>
                     <Link
                       href="/register"
-                      className="transition hover:text-[#FF7A00]"
+                      className="transition hover:text-[#E86C1F]"
                     >
                       Register Team
                     </Link>
@@ -578,7 +615,7 @@ export default function HomePage() {
                   <li>
                     <Link
                       href="/profile"
-                      className="transition hover:text-[#FF7A00]"
+                      className="transition hover:text-[#E86C1F]"
                     >
                       My Athlete Profile
                     </Link>
@@ -586,48 +623,34 @@ export default function HomePage() {
                 </ul>
               </div>
 
-              {/* Organizing Committee Contacts */}
+              {/* Organizing Committee Contacts — Classic Editorial Directory List (No Boxy Cards) */}
               <div className="lg:col-span-5">
-                <p className="label text-[#FF7A00]">
+                <p className="label text-[#E86C1F]">
                   Organizing Committee Helplines
                 </p>
-                <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                  <div className="rounded-xl border border-white/15 bg-[#09204A] p-4 transition duration-300 hover:-translate-y-1 hover:border-[#FF7A00]">
-                    <p className="label !text-[0.58rem] text-[#38BDF8]">
-                      {FEST_INFO.chiefCoordinator.role}
-                    </p>
-                    <p className="mt-1.5 font-display text-lg font-medium text-white">
-                      {FEST_INFO.chiefCoordinator.name}
-                    </p>
-                    <a
-                      href={`tel:${FEST_INFO.chiefCoordinator.phone.replace(
-                        /\s+/g,
-                        ""
-                      )}`}
-                      className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-[#FF7A00] hover:underline"
-                    >
-                      <Phone className="h-3 w-3" />
-                      {FEST_INFO.chiefCoordinator.phone}
-                    </a>
-                  </div>
-
-                  {FEST_INFO.eventsHeads.map((head) => (
+                <div className="mt-4 divide-y divide-white/10 border-y border-white/15">
+                  {[
+                    FEST_INFO.chiefCoordinator,
+                    ...FEST_INFO.eventsHeads,
+                  ].map((person) => (
                     <div
-                      key={head.phone}
-                      className="rounded-xl border border-white/15 bg-[#09204A] p-4 transition duration-300 hover:-translate-y-1 hover:border-[#FF7A00]"
+                      key={person.phone}
+                      className="flex items-center justify-between gap-4 py-3.5"
                     >
-                      <p className="label !text-[0.58rem] text-[#FF7A00]">
-                        {head.role}
-                      </p>
-                      <p className="mt-1.5 font-display text-lg font-medium text-white">
-                        {head.name}
-                      </p>
+                      <div>
+                        <p className="font-display text-xl font-semibold text-white">
+                          {person.name}
+                        </p>
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-blue-200/70">
+                          {person.role}
+                        </p>
+                      </div>
                       <a
-                        href={`tel:${head.phone.replace(/\s+/g, "")}`}
-                        className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-[#38BDF8] hover:underline"
+                        href={`tel:${person.phone.replace(/\s+/g, "")}`}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-[#FDBA74] transition hover:text-[#E86C1F]"
                       >
-                        <Phone className="h-3 w-3" />
-                        {head.phone}
+                        <Phone className="h-3.5 w-3.5 text-[#E86C1F]" />
+                        <span>{person.phone}</span>
                       </a>
                     </div>
                   ))}
