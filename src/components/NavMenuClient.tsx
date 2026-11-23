@@ -12,7 +12,7 @@ const emptySubscribe = () => () => {};
 
 const NAV_LINKS = [
   { num: "01", href: "/", label: "Home" },
-  { num: "02", href: "/tournaments", label: "Tournaments" },
+  { num: "02", href: "/tournaments", label: "Events" },
   { num: "03", href: "/accommodations", label: "Accommodations" },
   { num: "04", href: "/sponsors", label: "Sponsors" },
   { num: "05", href: "/register", label: "Register Team" },
@@ -96,8 +96,8 @@ export function NavMenuDrawerButton() {
               <div className="flex items-center justify-between px-6 pt-6 pb-2">
                 <div className="flex items-center gap-3">
                   <ZenithLogo size="md" />
-                  <p className="font-[family-name:var(--font-cinzel)] text-sm font-semibold tracking-[0.14em] text-white">
-                    ZENITH <span className="text-[#E86C1F]">2027</span>
+                  <p className="font-display text-sm font-bold tracking-[0.12em] text-white">
+                    ZENITH <span className="font-extrabold text-[#E86C1F]">2027</span>
                   </p>
                 </div>
                 <button
@@ -135,7 +135,7 @@ export function NavMenuDrawerButton() {
                     >
                       <div className="flex items-baseline gap-3.5">
                         <span
-                          className={`font-mono text-[11px] tracking-widest transition-colors ${
+                          className={`font-akira text-[10px] tracking-widest transition-colors ${
                             active
                               ? "text-[#E86C1F]"
                               : "text-blue-200/55 group-hover:text-[#E86C1F]"
@@ -143,7 +143,7 @@ export function NavMenuDrawerButton() {
                         >
                           {item.num}
                         </span>
-                        <span className="font-display text-2xl font-medium tracking-wide">
+                        <span className="font-display text-base font-medium uppercase tracking-wider sm:text-lg">
                           {item.label}
                         </span>
                       </div>

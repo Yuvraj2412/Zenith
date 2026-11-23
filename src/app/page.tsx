@@ -28,47 +28,46 @@ import { ZenithLogo } from "@/components/ZenithLogo";
 
 export default function HomePage() {
   return (
-    <div className="relative flex flex-col bg-gradient-to-b from-[#071A3E] via-[#0B2559] to-[#071A3E] text-white">
-      <ScrollHorizonOverlay />
-
-      {/* 1. ORBITAL SPACE SUNRISE HERO ("BEYOND THE HORIZON") */}
-      <section className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden bg-[#071A3E]">
-        {/* Luminous Orbital Sunrise Background */}
+    <div className="relative flex flex-col bg-[#051229] text-white">
+      {/* CONSTANT WHOLE-PAGE ORBITAL SPACE SUNRISE BACKGROUND (FIXED LIKE EVENTS PAGE) */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <div
-          className="animate-horizon-drift absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('/images/hero-space-horizon.jpg')" }}
           aria-hidden="true"
         />
-
-        {/* Prominent Sunburst Highlight Centered on the Orbital Sun */}
         <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(255,240,185,0.48)_0%,rgba(255,122,0,0.25)_34%,transparent_68%)]"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(255,240,185,0.40)_0%,rgba(255,122,0,0.20)_34%,transparent_68%)]"
           aria-hidden="true"
         />
-
-        {/* Interactive + Scroll-Moving Sun Rays & Falling Feathers */}
         <HeroHorizonEffects sunXRatio={0.5} sunYRatio={0.48} />
-
-        {/* Balanced Luminous Scrim (Not Gloomy — Lets the Blue Horizon & Sun Shine) */}
         <div
-          className="absolute inset-0 bg-gradient-to-r from-[#071A3E]/80 via-[#071A3E]/30 to-transparent"
+          className="absolute inset-0 bg-gradient-to-r from-[#071A3E]/75 via-[#071A3E]/30 to-[#071A3E]/45"
           aria-hidden="true"
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-[#071A3E] via-transparent to-[#071A3E]/20"
+          className="absolute inset-0 bg-gradient-to-t from-[#051229]/80 via-transparent to-[#071A3E]/25"
           aria-hidden="true"
         />
+      </div>
 
+      <ScrollHorizonOverlay />
+
+      {/* 1. ORBITAL SPACE SUNRISE HERO ("BEYOND THE HORIZON") */}
+      <section className="relative z-10 flex min-h-[100svh] flex-col justify-between overflow-hidden bg-transparent">
         {/* Hero Copy */}
         <div className="relative mx-auto my-auto w-full max-w-6xl px-4 pb-10 pt-24 sm:px-6 sm:pt-28">
           <div className="max-w-2xl">
             <div
-              className="animate-hero-rise inline-flex max-w-full items-center gap-2.5 rounded-full border border-white/25 bg-[#071A3E]/70 px-3.5 py-1.5"
+              className="animate-hero-rise inline-flex max-w-full items-center gap-2.5 rounded-full border border-white/25 bg-[#071A3E]/50 px-3.5 py-1.5"
               style={{ animationDelay: "60ms" }}
             >
               <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#E86C1F]" />
               <span className="truncate text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-100/95 sm:text-[11px] sm:tracking-[0.18em]">
-                {FEST_INFO.institute} • Est. {FEST_INFO.established}
+                {FEST_INFO.institute} • Est.{" "}
+                <span className="font-akira text-[10px]">
+                  {FEST_INFO.established}
+                </span>
               </span>
             </div>
 
@@ -76,15 +75,18 @@ export default function HomePage() {
               className="animate-hero-rise mt-3 sm:mt-4"
               style={{ animationDelay: "160ms" }}
             >
-              <span className="block font-[family-name:var(--font-cinzel)] text-[2.85rem] font-bold leading-[1.02] tracking-[0.06em] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)] sm:text-[4.65rem] lg:text-[5.5rem]">
-                ZENITH <span className="text-[#E86C1F]">2027</span>
+              <span className="block font-display text-[2.2rem] font-extrabold leading-[1.05] tracking-[0.05em] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)] sm:text-[3.75rem] lg:text-[4.4rem]">
+                ZENITH{" "}
+                <span className="font-akira font-black text-[#E86C1F]">
+                  2027
+                </span>
               </span>
-              <span className="mt-1.5 block font-display text-lg font-medium italic tracking-[0.04em] text-amber-200/95 sm:text-2xl lg:text-[1.75rem]">
-                Beyond the Horizon.
+              <span className="mt-2 block font-display text-sm font-light uppercase tracking-[0.18em] text-amber-200/95 sm:text-lg lg:text-xl">
+                Beyond the Horizon
               </span>
             </h1>
 
-            {/* Compact Classic Countdown to Jan 21, 2027 (Replaces the extra text line so 100vh fits cleanly) */}
+            {/* Compact Classic Countdown to Jan 21, 2027 */}
             <CountdownTimer />
 
             {/* Classic Refined Action Buttons */}
@@ -96,7 +98,7 @@ export default function HomePage() {
                 href="/tournaments"
                 className="group inline-flex items-center justify-center gap-2.5 rounded-md bg-[#E86C1F] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-md transition-colors duration-200 hover:bg-[#D45F15] sm:py-4"
               >
-                Explore Tournaments
+                Explore Events
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
               <Link
@@ -107,7 +109,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/accommodations"
-                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/30 bg-[#071A3E]/60 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-white transition-colors duration-200 hover:border-[#E86C1F] hover:bg-[#071A3E]/85 sm:py-4"
+                className="inline-flex items-center justify-center gap-2 rounded-md border border-white/30 bg-[#071A3E]/45 px-6 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-white transition-colors duration-200 hover:border-[#E86C1F] hover:bg-[#071A3E]/70 sm:py-4"
               >
                 Book Accommodation
               </Link>
@@ -116,7 +118,7 @@ export default function HomePage() {
         </div>
 
         {/* Bottom Horizon Bar */}
-        <div className="relative border-t border-white/15 bg-[#071A3E]/75 backdrop-blur-md">
+        <div className="relative border-t border-white/15 bg-[#071A3E]/45 backdrop-blur-xs">
           <div className="mx-auto grid max-w-6xl grid-cols-2 divide-y divide-white/10 sm:grid-cols-4 sm:divide-x sm:divide-y-0">
             <div className="px-4 py-3.5 sm:px-6 sm:py-4">
               <p className="label !text-[0.58rem] text-[#38BDF8]">Event</p>
@@ -128,7 +130,7 @@ export default function HomePage() {
               <p className="label !text-[0.58rem] text-[#38BDF8]">
                 Total Prize Pool*
               </p>
-              <p className="mt-0.5 font-display text-base font-medium text-[#FF7A00] sm:text-xl">
+              <p className="mt-0.5 font-akira text-sm font-extrabold text-[#FF7A00] sm:text-lg">
                 <AnimatedCounter target={362500} prefix="₹" durationMs={1600} />
               </p>
             </div>
@@ -154,14 +156,14 @@ export default function HomePage() {
 
       {/* INTERACTIVE PARALLAX STAGE FOR EVERYTHING BELOW THE FIRST 100VH */}
       <HomeBelowFoldParallax>
-        {/* 2. SPACIOUS MONUMENTAL PRIZE POOL & 3D-TILT PORTAL CARDS */}
+        {/* 2. SPACIOUS MONUMENTAL PRIZE POOL & PORTAL CARDS */}
         <section className="relative mx-auto w-full max-w-6xl px-4 pb-14 pt-20 sm:px-6 sm:pb-20 sm:pt-28">
           <ScrollReveal>
-            <div className="relative overflow-hidden rounded-xl border border-white/20 border-t-2 border-t-[#E86C1F] bg-[#071A3E]/75 p-8 text-center shadow-[0_24px_70px_rgba(3,10,26,0.75)] backdrop-blur-md sm:p-14">
+            <div className="relative overflow-hidden rounded-xl border border-white/20 border-t-2 border-t-[#E86C1F] bg-[#061533]/60 p-8 text-center shadow-2xl sm:p-14">
               {/* Background Sunburst Accent Inside Prize Card */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -top-28 left-1/2 h-72 w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(232,108,31,0.26)_0%,rgba(56,189,248,0.1)_48%,transparent_72%)]"
+                className="pointer-events-none absolute -top-28 left-1/2 h-72 w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(232,108,31,0.22)_0%,rgba(56,189,248,0.08)_48%,transparent_72%)]"
               />
 
               {/* Subtle Corner Telemetry Framing */}
@@ -173,11 +175,11 @@ export default function HomePage() {
               <span className="label relative text-[#38BDF8]">
                 Championship Rewards • ZENITH 2027
               </span>
-              <p className="relative mt-4 font-display text-5xl font-medium tracking-tight text-[#E86C1F] drop-shadow-[0_4px_24px_rgba(232,108,31,0.35)] sm:text-7xl lg:text-8xl">
+              <p className="font-akira relative mt-4 text-3xl font-extrabold tracking-wider text-[#E86C1F] drop-shadow-[0_4px_24px_rgba(232,108,31,0.35)] sm:text-5xl lg:text-6xl">
                 <AnimatedCounter target={362500} prefix="₹" durationMs={1800} />
-                <span className="text-3xl text-amber-200/90 sm:text-5xl">*</span>
+                <span className="text-2xl text-amber-200/90 sm:text-4xl">*</span>
               </p>
-              <h2 className="relative mt-3 font-display text-2xl font-medium text-white sm:text-4xl">
+              <h2 className="relative mt-3 font-display text-lg font-semibold uppercase tracking-wider text-white sm:text-2xl">
                 Total Championship Prize Pool
               </h2>
               <p className="relative mx-auto mt-3 max-w-xl text-sm leading-relaxed text-blue-100/90 sm:text-base">
@@ -186,9 +188,9 @@ export default function HomePage() {
                 your official <strong>Team ID</strong>.
               </p>
 
-              {/* 3D Interactive Tilt Portal Cards */}
+              {/* Portal Cards with Small Opacity */}
               <div className="relative mt-10 grid gap-5 text-left sm:grid-cols-3">
-                <InteractiveTiltCard className="rounded-lg border border-white/15 border-t-2 border-t-[#E86C1F] bg-[#05132E]/90 shadow-lg hover:border-[#E86C1F]">
+                <InteractiveTiltCard className="rounded-lg border border-white/15 border-t-2 border-t-[#E86C1F] bg-[#05132E]/50 shadow-lg hover:border-[#E86C1F] hover:bg-[#05132E]/70">
                   <Link
                     href="/tournaments"
                     className="flex h-full flex-col justify-between p-6"
@@ -196,12 +198,12 @@ export default function HomePage() {
                     <div>
                       <div className="flex items-center justify-between">
                         <Trophy className="h-6 w-6 text-[#E86C1F] transition-transform duration-300 group-hover:scale-110" />
-                        <span className="font-mono text-[11px] tracking-widest text-slate-400 group-hover:text-[#E86C1F]">
+                        <span className="font-akira text-[11px] text-slate-300 group-hover:text-[#E86C1F]">
                           01
                         </span>
                       </div>
-                      <h3 className="mt-4 font-display text-2xl font-medium text-white">
-                        Tournaments
+                      <h3 className="mt-4 font-display text-lg font-bold uppercase tracking-wider text-white">
+                        Events
                       </h3>
                       <p className="mt-1.5 text-xs leading-relaxed text-blue-100/80">
                         View all sports, prize pools, fees, squad rules, and
@@ -209,13 +211,13 @@ export default function HomePage() {
                       </p>
                     </div>
                     <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#E86C1F]">
-                      Open Tournaments
+                      Open Events
                       <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1.5" />
                     </span>
                   </Link>
                 </InteractiveTiltCard>
 
-                <InteractiveTiltCard className="rounded-lg border border-white/15 border-t-2 border-t-[#38BDF8] bg-[#05132E]/90 shadow-lg hover:border-[#38BDF8]">
+                <InteractiveTiltCard className="rounded-lg border border-white/15 border-t-2 border-t-[#38BDF8] bg-[#05132E]/50 shadow-lg hover:border-[#38BDF8] hover:bg-[#05132E]/70">
                   <Link
                     href="/accommodations"
                     className="flex h-full flex-col justify-between p-6"
@@ -223,11 +225,11 @@ export default function HomePage() {
                     <div>
                       <div className="flex items-center justify-between">
                         <Building2 className="h-6 w-6 text-[#38BDF8] transition-transform duration-300 group-hover:scale-110" />
-                        <span className="font-mono text-[11px] tracking-widest text-slate-400 group-hover:text-[#38BDF8]">
+                        <span className="font-akira text-[11px] text-slate-300 group-hover:text-[#38BDF8]">
                           02
                         </span>
                       </div>
-                      <h3 className="mt-4 font-display text-2xl font-medium text-white">
+                      <h3 className="mt-4 font-display text-lg font-bold uppercase tracking-wider text-white">
                         Accommodations
                       </h3>
                       <p className="mt-1.5 text-xs leading-relaxed text-blue-100/80">
@@ -242,7 +244,7 @@ export default function HomePage() {
                   </Link>
                 </InteractiveTiltCard>
 
-                <InteractiveTiltCard className="rounded-lg border border-white/15 border-t-2 border-t-[#E86C1F] bg-[#05132E]/90 shadow-lg hover:border-[#E86C1F]">
+                <InteractiveTiltCard className="rounded-lg border border-white/15 border-t-2 border-t-[#E86C1F] bg-[#05132E]/50 shadow-lg hover:border-[#E86C1F] hover:bg-[#05132E]/70">
                   <Link
                     href="/sponsors"
                     className="flex h-full flex-col justify-between p-6"
@@ -250,11 +252,11 @@ export default function HomePage() {
                     <div>
                       <div className="flex items-center justify-between">
                         <Handshake className="h-6 w-6 text-[#E86C1F] transition-transform duration-300 group-hover:scale-110" />
-                        <span className="font-mono text-[11px] tracking-widest text-slate-400 group-hover:text-[#E86C1F]">
+                        <span className="font-akira text-[11px] text-slate-300 group-hover:text-[#E86C1F]">
                           03
                         </span>
                       </div>
-                      <h3 className="mt-4 font-display text-2xl font-medium text-white">
+                      <h3 className="mt-4 font-display text-lg font-bold uppercase tracking-wider text-white">
                         Sponsors
                       </h3>
                       <p className="mt-1.5 text-xs leading-relaxed text-blue-100/80">
@@ -273,7 +275,7 @@ export default function HomePage() {
           </ScrollReveal>
         </section>
 
-        {/* 2B. INTERACTIVE 4-STEP ATHLETE & TEAM ID JOURNEY */}
+        {/* 2B. INTERACTIVE 4-STEP ATHLETE & TEAM ID JOURNEY (SMALL OPACITY) */}
         <section className="relative mx-auto w-full max-w-6xl px-4 pb-20 sm:px-6 sm:pb-24">
           <ScrollReveal>
             <div className="mb-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
@@ -282,7 +284,7 @@ export default function HomePage() {
                   <Sparkles className="h-3.5 w-3.5" />
                   How Participation Works
                 </p>
-                <h2 className="mt-1.5 font-display text-2xl font-medium text-white sm:text-4xl">
+                <h2 className="mt-1.5 font-display text-xl font-bold tracking-wide text-white sm:text-3xl">
                   From Squad Registration to Campus Stay
                 </h2>
               </div>
@@ -298,7 +300,7 @@ export default function HomePage() {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 {
-                  step: "STEP 01",
+                  step: "01",
                   title: "Complete Athlete Profile",
                   desc: "Sign in with Google and save your university and contact details once.",
                   icon: Users,
@@ -306,7 +308,7 @@ export default function HomePage() {
                   href: "/profile",
                 },
                 {
-                  step: "STEP 02",
+                  step: "02",
                   title: "One Captain Registers",
                   desc: "Select your sport & division, enter squad size, and upload UPI fee proof.",
                   icon: Trophy,
@@ -314,7 +316,7 @@ export default function HomePage() {
                   href: "/register",
                 },
                 {
-                  step: "STEP 03",
+                  step: "03",
                   title: "Unlock Official Team ID",
                   desc: "Every registered squad immediately receives a unique ZEN-XXXXXX Team ID.",
                   icon: KeyRound,
@@ -322,7 +324,7 @@ export default function HomePage() {
                   href: "/profile",
                 },
                 {
-                  step: "STEP 04",
+                  step: "04",
                   title: "Match ID & Book Stay",
                   desc: "Anyone on your squad can enter the Team ID on Accommodations to book stay.",
                   icon: CheckCircle2,
@@ -334,7 +336,7 @@ export default function HomePage() {
                 return (
                   <InteractiveTiltCard
                     key={item.step}
-                    className={`rounded-lg border border-white/15 border-t-2 ${item.accent} bg-[#061533]/80 backdrop-blur-sm`}
+                    className={`rounded-lg border border-white/15 border-t-2 ${item.accent} bg-[#061533]/45 hover:bg-[#061533]/65`}
                   >
                     <Link
                       href={item.href}
@@ -342,15 +344,15 @@ export default function HomePage() {
                     >
                       <div>
                         <div className="flex items-center justify-between">
-                          <span className="font-mono text-[10px] font-semibold tracking-[0.2em] text-[#38BDF8]">
+                          <span className="font-akira text-[11px] text-[#38BDF8]">
                             {item.step}
                           </span>
                           <Icon className="h-4 w-4 text-[#E86C1F]" />
                         </div>
-                        <h3 className="mt-3 font-display text-xl font-medium text-white group-hover:text-[#FDBA74]">
+                        <h3 className="mt-3 font-display text-sm font-semibold tracking-wide text-white group-hover:text-[#FDBA74] sm:text-base">
                           {item.title}
                         </h3>
-                        <p className="mt-1.5 text-xs leading-relaxed text-blue-100/80">
+                        <p className="mt-1.5 text-xs leading-relaxed text-blue-100/85">
                           {item.desc}
                         </p>
                       </div>
@@ -364,39 +366,56 @@ export default function HomePage() {
             </div>
           </ScrollReveal>
         </section>
+      </HomeBelowFoldParallax>
 
-        {/* 3. ABOUT IIST (LEFT) + GOOGLE MAPS TO IIST (RIGHT) — TRANSLUCENT OVER PARALLAX STAGE */}
-        <section
-          id="about"
-          className="relative border-t border-white/15 bg-[#061636]/55 backdrop-blur-xs"
-        >
-          <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+      {/* 3. ABOUT IIST (LEFT) + GOOGLE MAPS TO IIST (RIGHT) — ONLY BLURRED IIST CAMPUS BACKGROUND (COVERS SPACE BACKGROUND) */}
+      <section
+        id="about"
+        className="relative z-10 overflow-hidden border-t border-white/15 bg-[#05122B]"
+      >
+        {/* Full-Opacity Blurred IIST Campus Background Image (Completely Covers Space Horizon Behind About IIST) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 scale-105 bg-cover bg-center bg-no-repeat blur-[2px]"
+          style={{ backgroundImage: "url('/images/iist-campus.jpg')" }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#041026]/72 via-[#071A3E]/55 to-[#041026]/72"
+        />
+
+        <div className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
             <ScrollReveal>
               <div className="grid gap-10 lg:grid-cols-12 lg:items-stretch">
                 {/* Left: About IIST & Notable Space Leaders */}
                 <div className="flex flex-col justify-between space-y-6 lg:col-span-6">
                   <div>
                     <p className="label text-[#38BDF8]">About the Host Campus</p>
-                    <h2 className="mt-2 font-display text-2xl font-medium tracking-tight text-white sm:text-4xl">
+                    <h2 className="mt-2 font-display text-xl font-bold leading-snug tracking-wide text-white sm:text-3xl">
                       Indian Institute of Space Science and Technology (IIST)
                     </h2>
-                    <p className="mt-4 text-sm leading-relaxed text-blue-100/90 sm:text-base">
+                    <p className="mt-4 text-sm leading-relaxed text-blue-50/90 sm:text-base">
                       Located in Valiamala, Thiruvananthapuram, Kerala and
-                      founded in 2007 under the Department of Space, Government
-                      of India, IIST works in close partnership with the Indian
-                      Space Research Organisation (ISRO).
+                      founded in{" "}
+                      <span className="font-akira text-xs text-white">2007</span>{" "}
+                      under the Department of Space, Government of India, IIST
+                      works in close partnership with the Indian Space Research
+                      Organisation (ISRO).
                     </p>
-                    <p className="mt-3 text-sm leading-relaxed text-blue-100/90 sm:text-base">
+                    <p className="mt-3 text-sm leading-relaxed text-blue-50/90 sm:text-base">
                       Over{" "}
                       <strong className="text-[#E86C1F]">
-                        {FEST_INFO.isroAlumniCount} IIST Alumni
+                        <span className="font-akira text-xs">
+                          {FEST_INFO.isroAlumniCount}
+                        </span>{" "}
+                        IIST Alumni
                       </strong>{" "}
                       serve in ISRO, and ZENITH brings that same spirit of
                       excellence to inter-college athletics.
                     </p>
 
                     {/* Notable Leaders */}
-                    <InteractiveTiltCard className="mt-6 rounded-xl border border-white/15 border-l-4 border-l-[#E86C1F] bg-[#05122B]/85 p-5 shadow-lg">
+                    <InteractiveTiltCard className="mt-6 rounded-xl border border-white/15 border-l-4 border-l-[#E86C1F] bg-[#05122B]/50 p-5 shadow-lg">
                       <p className="label !text-[0.6rem] text-[#E86C1F]">
                         Guided by Visionaries
                       </p>
@@ -404,7 +423,7 @@ export default function HomePage() {
                         {FEST_INFO.distinguishedLeaders.map((leader) => (
                           <div
                             key={leader}
-                            className="rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-medium text-blue-50 transition hover:border-[#E86C1F]/60 hover:bg-white/10 hover:text-[#FDBA74]"
+                            className="rounded-md border border-white/10 bg-white/[0.06] px-3 py-2 text-xs font-medium text-blue-50 transition hover:border-[#E86C1F]/60 hover:bg-white/12 hover:text-[#FDBA74]"
                           >
                             {leader}
                           </div>
@@ -413,12 +432,12 @@ export default function HomePage() {
                     </InteractiveTiltCard>
                   </div>
 
-                  <div className="grid grid-cols-3 divide-x divide-white/15 rounded-xl border border-white/15 bg-[#05122B]/85 p-4 text-center shadow-lg">
+                  <div className="grid grid-cols-3 divide-x divide-white/15 rounded-xl border border-white/15 bg-[#05122B]/50 p-4 text-center shadow-lg">
                     <div>
                       <p className="label !text-[0.58rem] text-[#38BDF8]">
                         Founded
                       </p>
-                      <p className="mt-1 font-display text-xl font-medium text-white sm:text-2xl">
+                      <p className="font-akira mt-1 text-base font-extrabold text-white sm:text-xl">
                         <AnimatedCounter
                           target={FEST_INFO.established}
                           locale="en-US"
@@ -430,7 +449,7 @@ export default function HomePage() {
                       <p className="label !text-[0.58rem] text-[#38BDF8]">
                         ISRO Alumni
                       </p>
-                      <p className="mt-1 font-display text-xl font-medium text-[#E86C1F] sm:text-2xl">
+                      <p className="font-akira mt-1 text-base font-extrabold text-[#E86C1F] sm:text-xl">
                         <AnimatedCounter
                           target={1442}
                           suffix="+"
@@ -450,7 +469,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Right: Embedded Google Maps to IIST Valiamala */}
-                <div className="flex flex-col justify-between overflow-hidden rounded-xl border border-white/20 border-t-2 border-t-[#38BDF8] bg-[#05122B]/90 shadow-2xl lg:col-span-6">
+                <div className="flex flex-col justify-between overflow-hidden rounded-xl border border-white/20 border-t-2 border-t-[#38BDF8] bg-[#05122B]/55 shadow-2xl lg:col-span-6">
                   <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/15 px-5 py-4">
                     <div className="flex items-center gap-2">
                       <MapPin className="h-4 w-4 text-[#E86C1F]" />
@@ -479,7 +498,7 @@ export default function HomePage() {
                     />
                   </div>
 
-                  <div className="border-t border-white/15 bg-[#05122B] px-5 py-3.5 text-xs text-blue-100/80">
+                  <div className="border-t border-white/15 bg-[#05122B]/85 px-5 py-3.5 text-xs text-blue-100/85">
                     <strong>Address:</strong> Valiamala Road, Valiamala,
                     Thiruvananthapuram, Kerala 695547 (~25 km from Trivandrum
                     Central Railway Station).
@@ -489,12 +508,11 @@ export default function HomePage() {
             </ScrollReveal>
           </div>
         </section>
-      </HomeBelowFoldParallax>
 
-      {/* 4. ATTRACTIVE & INFORMATIVE FOOTER */}
+      {/* 4. ATTRACTIVE & INFORMATIVE FOOTER (LOW OPACITY OVER CONSTANT HORIZON) */}
       <footer
         id="contact"
-        className="border-t border-white/15 bg-[#05132E] text-slate-200"
+        className="relative z-10 border-t border-white/15 bg-[#040F26]/65 text-slate-200"
       >
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <ScrollReveal>
@@ -638,7 +656,7 @@ export default function HomePage() {
                       className="flex items-center justify-between gap-4 py-3.5"
                     >
                       <div>
-                        <p className="font-display text-xl font-semibold text-white">
+                        <p className="font-display text-sm font-medium tracking-wide text-white sm:text-base">
                           {person.name}
                         </p>
                         <p className="text-[11px] uppercase tracking-[0.14em] text-blue-200/70">

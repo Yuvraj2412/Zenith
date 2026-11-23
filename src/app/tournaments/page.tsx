@@ -53,14 +53,14 @@ export default function TournamentsPage() {
               <p className="label text-[#38BDF8]">
                 Inter-College Athletics Roster
               </p>
-              <h1 className="mt-2 font-display text-4xl font-semibold leading-[1.06] tracking-tight text-white sm:text-6xl">
-                The <span className="text-[#E86C1F]">Tournaments</span> Arena.
+              <h1 className="mt-2 font-display text-2xl font-extrabold uppercase leading-[1.1] tracking-wider text-white sm:text-5xl">
+                The <span className="text-[#E86C1F]">Tournaments</span> Arena
               </h1>
               <p className="mt-4 max-w-xl text-sm leading-relaxed text-blue-50/90 sm:text-base">
                 Inspect rules, division fees, squad limits, and prize breakdowns
                 below. Only{" "}
                 <strong className="text-white">
-                  one representative (captain)
+                  one representative
                 </strong>{" "}
                 registers per team to generate your squad&apos;s{" "}
                 <strong className="text-[#FDBA74]">Team ID</strong>.
@@ -85,14 +85,14 @@ export default function TournamentsPage() {
               </div>
             </div>
 
-            {/* Translucent Glass Scoreboard Strip */}
-            <div className="w-full max-w-md rounded-xl border border-white/20 bg-[#051229]/65 p-5 shadow-xl backdrop-blur-xl">
+            {/* Translucent Scoreboard Strip */}
+            <div className="w-full max-w-md rounded-xl border border-white/20 bg-[#051229]/55 p-5 shadow-xl">
               <div className="flex items-baseline justify-between border-b border-white/15 pb-3">
                 <div>
                   <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#38BDF8]">
                     Combined Prize Pool*
                   </p>
-                  <p className="mt-0.5 font-display text-3xl font-semibold text-[#E86C1F] sm:text-4xl">
+                  <p className="font-akira mt-1 text-xl font-extrabold text-[#E86C1F] sm:text-2xl">
                     <AnimatedCounter
                       target={362500}
                       prefix="₹"
@@ -135,7 +135,7 @@ export default function TournamentsPage() {
         className="relative z-10 mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16"
       >
         <ScrollReveal>
-          <div className="rounded-xl border border-white/15 bg-[#051229]/60 p-4 shadow-2xl backdrop-blur-xl sm:p-7">
+          <div className="rounded-xl border border-white/15 bg-[#051229]/80 p-4 shadow-2xl sm:p-7">
             <Suspense
               fallback={<SportsShowcase sports={SPORTS} authMode="guest" />}
             >

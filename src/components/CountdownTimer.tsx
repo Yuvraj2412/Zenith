@@ -41,14 +41,14 @@ export function CountdownTimer() {
 
   return (
     <div
-      className="animate-hero-rise mt-4 inline-flex flex-wrap items-center gap-3 rounded-lg border border-white/20 border-l-2 border-l-[#E86C1F] bg-[#06142E]/75 px-3.5 py-2.5 shadow-lg backdrop-blur-md sm:mt-5 sm:gap-4 sm:px-4"
+      className="animate-hero-rise mt-4 inline-flex flex-wrap items-center gap-3 rounded-lg border border-white/20 border-l-2 border-l-[#E86C1F] bg-[#06142E]/55 px-3.5 py-2.5 shadow-lg backdrop-blur-md sm:mt-5 sm:gap-4 sm:px-4"
       style={{ animationDelay: "260ms" }}
     >
       <div className="flex items-center gap-2 pr-1">
         <CalendarClock className="h-4 w-4 shrink-0 text-[#E86C1F]" />
         <div>
           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E86C1F]">
-            Jan 21, 2027
+            Jan <span className="font-akira">21, 2027</span>
           </p>
           <p className="text-[11px] font-medium text-blue-100/85">
             Fest Kickoff
@@ -62,7 +62,7 @@ export function CountdownTimer() {
             key={u.label}
             className="px-2.5 text-center first:pl-0 last:pr-0 sm:px-3.5"
           >
-            <p className="font-display text-xl font-medium tabular-nums leading-none text-white sm:text-2xl">
+            <p className="font-akira text-base font-extrabold tabular-nums leading-none text-white sm:text-xl">
               {u.value}
             </p>
             <p className="mt-1 font-mono text-[9px] font-semibold uppercase tracking-[0.18em] text-[#38BDF8]">

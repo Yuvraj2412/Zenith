@@ -194,20 +194,20 @@ export function SportsShowcase({
                 className="flex w-full cursor-pointer items-center justify-between gap-3 px-2.5 py-4 text-left transition-all duration-300 ease-out sm:gap-4 sm:px-5 sm:py-6 sm:group-hover:pl-6"
               >
                 <div className="flex min-w-0 items-center gap-3 sm:gap-5">
-                  <span className="label shrink-0 text-[#FF7A00] transition-transform duration-300 group-hover:scale-110">
+                  <span className="font-akira shrink-0 text-xs text-[#FF7A00] transition-transform duration-300 group-hover:scale-110">
                     {sportNumber}
                   </span>
                   <div className="hidden shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 sm:block">
                     <SportIcon slug={sport.slug} />
                   </div>
-                  <h3 className="truncate font-display text-xl font-medium leading-tight text-white transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-[#FF7A00] sm:text-3xl">
+                  <h3 className="truncate font-display text-base font-semibold uppercase leading-tight tracking-wider text-white transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-[#FF7A00] sm:text-xl">
                     {sport.name}
                   </h3>
                 </div>
 
                 <div className="flex shrink-0 items-center gap-2.5 sm:gap-5">
                   <div className="text-right">
-                    <span className="font-display text-base font-medium tabular-nums text-[#FDBA74] transition-colors duration-200 group-hover:text-[#E86C1F] sm:text-2xl">
+                    <span className="font-akira text-xs font-extrabold tabular-nums text-[#FDBA74] transition-colors duration-200 group-hover:text-[#E86C1F] sm:text-base">
                       {getPrizeDisplay(sport)}
                     </span>
                     <span className="ml-2 hidden text-xs font-medium text-slate-300 sm:inline">

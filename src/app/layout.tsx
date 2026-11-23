@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel, Cormorant_Garamond, Geist } from "next/font/google";
+import { Geist, Unbounded } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 
@@ -8,17 +8,10 @@ const geist = Geist({
   subsets: ["latin"],
 });
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-fraunces",
+const akiraFallback = Unbounded({
+  variable: "--font-akira",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-});
-
-const cinzel = Cinzel({
-  variable: "--font-cinzel",
-  subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -31,7 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${cormorant.variable} ${cinzel.variable} h-full antialiased`}
+      className={`${geist.variable} ${akiraFallback.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-gradient-to-b from-[#071A3E] via-[#0B2559] to-[#071A3E] text-[#091930]">
         <Navbar />
